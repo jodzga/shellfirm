@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -52,7 +51,9 @@ snapshot_kind: text
     TestSensitivePatternsResult {
         file_path: "fs-recursively_delete.yaml",
         test: "rm -rf /ffff",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "fs-strict:any_deletion",
+        ],
         test_description: "folder not found",
     },
     TestSensitivePatternsResult {
@@ -73,7 +74,9 @@ snapshot_kind: text
     TestSensitivePatternsResult {
         file_path: "fs-recursively_delete.yaml",
         test: "rm -FR /",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "fs-strict:any_deletion",
+        ],
         test_description: "invalid command",
     },
     TestSensitivePatternsResult {
@@ -115,6 +118,7 @@ snapshot_kind: text
         test: "rm -rf --force /",
         check_detection_ids: [
             "fs:recursively_delete",
+            "fs-strict:any_deletion",
         ],
         test_description: "match command with long force flag",
     },
@@ -123,13 +127,16 @@ snapshot_kind: text
         test: "rm -r --force /",
         check_detection_ids: [
             "fs:recursively_delete",
+            "fs-strict:any_deletion",
         ],
         test_description: "match command with long force flag",
     },
     TestSensitivePatternsResult {
         file_path: "fs-recursively_delete.yaml",
         test: "rm -rfv /",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "fs-strict:any_deletion",
+        ],
         test_description: "match command with verbose flag",
     },
     TestSensitivePatternsResult {
@@ -137,6 +144,7 @@ snapshot_kind: text
         test: "rm -rf --verbose /",
         check_detection_ids: [
             "fs:recursively_delete",
+            "fs-strict:any_deletion",
         ],
         test_description: "match command with long verbose flag",
     },
@@ -145,6 +153,7 @@ snapshot_kind: text
         test: "rm -rf --preserve-root /",
         check_detection_ids: [
             "fs:recursively_delete",
+            "fs-strict:any_deletion",
         ],
         test_description: "match command with preserve-root flag",
     },
