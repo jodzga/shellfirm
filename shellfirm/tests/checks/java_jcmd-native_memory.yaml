@@ -1,0 +1,32 @@
+---
+- test: jcmd 1234 VM.native_memory
+  expected_detection_ids:
+    - java_jcmd:native_memory
+  description: match basic VM.native_memory command
+
+- test: jcmd 5678 VM.native_memory summary
+  expected_detection_ids:
+    - java_jcmd:native_memory
+  description: match VM.native_memory with summary option
+
+- test: jcmd java-app VM.native_memory detail
+  expected_detection_ids:
+    - java_jcmd:native_memory
+  description: match VM.native_memory with detail option
+
+- test: jcmd 1234 VM.native_memory baseline
+  expected_detection_ids:
+    - java_jcmd:native_memory
+  description: match VM.native_memory with baseline option
+
+- test: jcmd 1234 VM.system_properties
+  expected_detection_ids: []
+  description: should not match safe VM commands
+
+- test: jcmd 1234 VM.version
+  expected_detection_ids: []
+  description: should not match VM.version command
+
+- test: cat /proc/meminfo
+  expected_detection_ids: []
+  description: should not match when VM.native_memory is not a jcmd command

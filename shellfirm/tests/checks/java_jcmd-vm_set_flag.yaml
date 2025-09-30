@@ -1,0 +1,27 @@
+---
+- test: jcmd 1234 VM.set_flag PrintGC true
+  expected_detection_ids:
+    - java_jcmd:vm_set_flag
+  description: match VM.set_flag command with boolean flag
+
+- test: jcmd 5678 VM.set_flag MaxHeapSize 4g
+  expected_detection_ids:
+    - java_jcmd:vm_set_flag
+  description: match VM.set_flag command with memory flag
+
+- test: jcmd java-app VM.set_flag UnlockDiagnosticVMOptions true
+  expected_detection_ids:
+    - java_jcmd:vm_set_flag
+  description: match VM.set_flag with process name and diagnostic flag
+
+- test: jcmd 1234 VM.system_properties
+  expected_detection_ids: []
+  description: should not match safe VM commands
+
+- test: jcmd 1234 VM.version
+  expected_detection_ids: []
+  description: should not match VM.version command
+
+- test: echo "VM.set_flag" | tail -1
+  expected_detection_ids: []
+  description: should not match when VM.set_flag is not a jcmd command

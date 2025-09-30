@@ -1,0 +1,48 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-heap_dump.yaml",
+        test: "jcmd 1234 GC.heap_dump /tmp/heap.hprof",
+        check_detection_ids: [
+            "java_jcmd:heap_dump",
+        ],
+        test_description: "match heap dump with file path",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-heap_dump.yaml",
+        test: "jcmd 5678 GC.heap_dump -all /home/user/dumps/heap.hprof",
+        check_detection_ids: [
+            "java_jcmd:heap_dump",
+        ],
+        test_description: "match heap dump with options and file path",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-heap_dump.yaml",
+        test: "jcmd my-java-app GC.heap_dump heap_dump.hprof",
+        check_detection_ids: [
+            "java_jcmd:heap_dump",
+        ],
+        test_description: "match heap dump with process name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-heap_dump.yaml",
+        test: "jcmd 1234 GC.class_histogram",
+        check_detection_ids: [],
+        test_description: "should not match class histogram command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-heap_dump.yaml",
+        test: "jcmd 1234 Thread.print",
+        check_detection_ids: [],
+        test_description: "should not match thread dump command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-heap_dump.yaml",
+        test: "ls heap_dump.hprof",
+        check_detection_ids: [],
+        test_description: "should not match when GC.heap_dump is not a jcmd command",
+    },
+]

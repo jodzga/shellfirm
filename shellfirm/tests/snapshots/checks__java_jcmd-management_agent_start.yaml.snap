@@ -1,0 +1,58 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "jcmd 1234 ManagementAgent.start",
+        check_detection_ids: [
+            "java_jcmd:management_agent_start",
+        ],
+        test_description: "match basic ManagementAgent.start command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "jcmd 5678 ManagementAgent.start jmxremote.port=9999",
+        check_detection_ids: [
+            "java_jcmd:management_agent_start",
+        ],
+        test_description: "match ManagementAgent.start with JMX port",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "jcmd java-app ManagementAgent.start jmxremote.authenticate=false",
+        check_detection_ids: [
+            "java_jcmd:management_agent_start",
+        ],
+        test_description: "match ManagementAgent.start with authentication disabled",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "jcmd 1234 ManagementAgent.start jmxremote.ssl=false jmxremote.port=8080",
+        check_detection_ids: [
+            "java_jcmd:management_agent_start",
+        ],
+        test_description: "match ManagementAgent.start with multiple parameters",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "jcmd 1234 ManagementAgent.stop",
+        check_detection_ids: [
+            "java_jcmd:management_agent_stop",
+        ],
+        test_description: "should match ManagementAgent.stop (different check)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "jcmd 1234 VM.version",
+        check_detection_ids: [],
+        test_description: "should not match safe VM commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_start.yaml",
+        test: "ps aux | grep ManagementAgent",
+        check_detection_ids: [],
+        test_description: "should not match when ManagementAgent.start is not a jcmd command",
+    },
+]

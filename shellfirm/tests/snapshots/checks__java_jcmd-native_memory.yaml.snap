@@ -1,0 +1,56 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "jcmd 1234 VM.native_memory",
+        check_detection_ids: [
+            "java_jcmd:native_memory",
+        ],
+        test_description: "match basic VM.native_memory command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "jcmd 5678 VM.native_memory summary",
+        check_detection_ids: [
+            "java_jcmd:native_memory",
+        ],
+        test_description: "match VM.native_memory with summary option",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "jcmd java-app VM.native_memory detail",
+        check_detection_ids: [
+            "java_jcmd:native_memory",
+        ],
+        test_description: "match VM.native_memory with detail option",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "jcmd 1234 VM.native_memory baseline",
+        check_detection_ids: [
+            "java_jcmd:native_memory",
+        ],
+        test_description: "match VM.native_memory with baseline option",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "jcmd 1234 VM.system_properties",
+        check_detection_ids: [],
+        test_description: "should not match safe VM commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "jcmd 1234 VM.version",
+        check_detection_ids: [],
+        test_description: "should not match VM.version command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-native_memory.yaml",
+        test: "cat /proc/meminfo",
+        check_detection_ids: [],
+        test_description: "should not match when VM.native_memory is not a jcmd command",
+    },
+]

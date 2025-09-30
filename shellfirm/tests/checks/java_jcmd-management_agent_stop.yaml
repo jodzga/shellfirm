@@ -1,0 +1,28 @@
+---
+- test: jcmd 1234 ManagementAgent.stop
+  expected_detection_ids:
+    - java_jcmd:management_agent_stop
+  description: match basic ManagementAgent.stop command
+
+- test: jcmd 5678 ManagementAgent.stop force=true
+  expected_detection_ids:
+    - java_jcmd:management_agent_stop
+  description: match ManagementAgent.stop with force option
+
+- test: jcmd java-process ManagementAgent.stop
+  expected_detection_ids:
+    - java_jcmd:management_agent_stop
+  description: match ManagementAgent.stop with process name
+
+- test: jcmd 1234 ManagementAgent.start
+  expected_detection_ids:
+    - java_jcmd:management_agent_start
+  description: should match ManagementAgent.start (different check)
+
+- test: jcmd 1234 VM.uptime
+  expected_detection_ids: []
+  description: should not match safe VM commands
+
+- test: systemctl stop management-agent
+  expected_detection_ids: []
+  description: should not match when ManagementAgent.stop is not a jcmd command

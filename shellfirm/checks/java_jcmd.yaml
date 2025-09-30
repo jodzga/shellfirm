@@ -1,0 +1,103 @@
+# Java jcmd command safety checks
+# Blocks potentially destructive jcmd operations while allowing safe diagnostic commands
+
+# Block JVM state-changing commands that can impact performance or stability
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+GC\.run\b'
+  description: "GC.run forces garbage collection which can severely impact application performance. Consider if this is necessary in production."
+  id: java_jcmd:gc_run
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+GC\.run_finalization\b'
+  description: "GC.run_finalization forces finalization of pending objects which can impact performance and is generally not recommended."
+  id: java_jcmd:gc_run_finalization
+
+# Block resource-intensive heap dump operations
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+GC\.heap_dump\b'
+  description: "Heap dumps can be extremely resource-intensive and may freeze the JVM temporarily. Ensure adequate disk space and consider impact on production systems."
+  id: java_jcmd:heap_dump
+
+# Block JFR operations that can impact performance or change state
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+JFR\.start\b'
+  description: "Starting Java Flight Recorder can impact application performance. Ensure this monitoring overhead is acceptable."
+  id: java_jcmd:jfr_start
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+JFR\.stop\b'
+  description: "Stopping Java Flight Recorder will terminate ongoing performance monitoring. Confirm this is intended."
+  id: java_jcmd:jfr_stop
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+JFR\.dump\b'
+  description: "JFR dumps can be resource-intensive and consume significant disk space. Ensure adequate resources are available."
+  id: java_jcmd:jfr_dump
+
+# Block dangerous JVM flag modifications - CRITICAL SAFETY
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+VM\.set_flag\b'
+  description: "VM.set_flag can permanently alter JVM behavior and stability. This is extremely dangerous in production environments."
+  id: java_jcmd:vm_set_flag
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+VM\.unlock_commercial_features\b'
+  description: "Unlocking commercial features changes JVM licensing and behavior. Ensure you have proper licensing and understand implications."
+  id: java_jcmd:vm_unlock_commercial
+
+# Block management agent operations that have security implications
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+ManagementAgent\.start\b'
+  description: "Starting the management agent exposes JVM to remote monitoring, which has security implications. Verify network security."
+  id: java_jcmd:management_agent_start
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+ManagementAgent\.stop\b'
+  description: "Stopping the management agent will disable remote JVM monitoring. Confirm this won't break monitoring systems."
+  id: java_jcmd:management_agent_stop
+
+# Block compiler directive modifications that can affect performance
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+Compiler\.directives_add\b'
+  description: "Adding compiler directives changes how methods are compiled, potentially affecting performance and behavior."
+  id: java_jcmd:compiler_directives_add
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+Compiler\.directives_remove\b'
+  description: "Removing compiler directives changes compilation behavior. Ensure this won't negatively impact application performance."
+  id: java_jcmd:compiler_directives_remove
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+Compiler\.directives_clear\b'
+  description: "Clearing all compiler directives removes performance optimizations. This may significantly impact application performance."
+  id: java_jcmd:compiler_directives_clear
+
+# Block resource-intensive memory operations
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+VM\.native_memory\b'
+  description: "Native memory tracking can be resource-intensive and impact performance. Consider the monitoring overhead."
+  id: java_jcmd:native_memory
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+VM\.stringtable\b'
+  description: "String table inspection can be resource-intensive on applications with many strings. Consider performance impact."
+  id: java_jcmd:stringtable
+
+- from: java_jcmd
+  test: '\bjcmd\s+\S+\s+VM\.symboltable\b'
+  description: "Symbol table inspection can be resource-intensive. Consider the performance impact on the running application."
+  id: java_jcmd:symboltable
+
+# Note: Safe commands that should NOT be blocked:
+# - help (displays available commands)  
+# - VM.version (shows JVM version)
+# - VM.uptime (shows JVM uptime)
+# - VM.system_properties (lists system properties)
+# - VM.command_line (shows startup command line)
+# - VM.info (basic JVM information)
+# - Thread.print (thread dump - generally safe)
+# - GC.class_histogram (heap statistics - read-only)
+# - GC.class_stats (class statistics - read-only) 
+# - Compiler.codecache (code cache info - read-only)
+# - Compiler.codelist (compiled methods list - read-only)
+# - Compiler.queue (compilation queue - read-only)

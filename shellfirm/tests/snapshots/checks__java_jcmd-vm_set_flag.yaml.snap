@@ -1,0 +1,48 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-vm_set_flag.yaml",
+        test: "jcmd 1234 VM.set_flag PrintGC true",
+        check_detection_ids: [
+            "java_jcmd:vm_set_flag",
+        ],
+        test_description: "match VM.set_flag command with boolean flag",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-vm_set_flag.yaml",
+        test: "jcmd 5678 VM.set_flag MaxHeapSize 4g",
+        check_detection_ids: [
+            "java_jcmd:vm_set_flag",
+        ],
+        test_description: "match VM.set_flag command with memory flag",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-vm_set_flag.yaml",
+        test: "jcmd java-app VM.set_flag UnlockDiagnosticVMOptions true",
+        check_detection_ids: [
+            "java_jcmd:vm_set_flag",
+        ],
+        test_description: "match VM.set_flag with process name and diagnostic flag",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-vm_set_flag.yaml",
+        test: "jcmd 1234 VM.system_properties",
+        check_detection_ids: [],
+        test_description: "should not match safe VM commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-vm_set_flag.yaml",
+        test: "jcmd 1234 VM.version",
+        check_detection_ids: [],
+        test_description: "should not match VM.version command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-vm_set_flag.yaml",
+        test: "echo \"VM.set_flag\" | tail -1",
+        check_detection_ids: [],
+        test_description: "should not match when VM.set_flag is not a jcmd command",
+    },
+]

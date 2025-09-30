@@ -1,0 +1,27 @@
+---
+- test: jcmd 1234 JFR.dump filename=/tmp/recording.jfr
+  expected_detection_ids:
+    - java_jcmd:jfr_dump
+  description: match JFR.dump with filename
+
+- test: jcmd 5678 JFR.dump name=myrecording filename=dump.jfr
+  expected_detection_ids:
+    - java_jcmd:jfr_dump
+  description: match JFR.dump with name and filename
+
+- test: jcmd java-app JFR.dump 1 /path/to/recording.jfr
+  expected_detection_ids:
+    - java_jcmd:jfr_dump
+  description: match JFR.dump with ID and path
+
+- test: jcmd 1234 JFR.check
+  expected_detection_ids: []
+  description: should not match JFR.check command (not implemented in this test)
+
+- test: jcmd 1234 Thread.print
+  expected_detection_ids: []
+  description: should not match safe Thread commands
+
+- test: mysqldump database > dump.sql
+  expected_detection_ids: []
+  description: should not match when JFR.dump is not a jcmd command

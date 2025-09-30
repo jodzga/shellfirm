@@ -1,0 +1,48 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-gc_run.yaml",
+        test: "jcmd 1234 GC.run",
+        check_detection_ids: [
+            "java_jcmd:gc_run",
+        ],
+        test_description: "match basic GC.run command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-gc_run.yaml",
+        test: "jcmd 5678 GC.run full",
+        check_detection_ids: [
+            "java_jcmd:gc_run",
+        ],
+        test_description: "match GC.run with parameters",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-gc_run.yaml",
+        test: "jcmd java-process-name GC.run",
+        check_detection_ids: [
+            "java_jcmd:gc_run",
+        ],
+        test_description: "match GC.run with process name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-gc_run.yaml",
+        test: "jcmd 1234 GC.class_histogram",
+        check_detection_ids: [],
+        test_description: "should not match safe GC commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-gc_run.yaml",
+        test: "jcmd 1234 help",
+        check_detection_ids: [],
+        test_description: "should not match help command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-gc_run.yaml",
+        test: "echo \"GC.run\" | grep something",
+        check_detection_ids: [],
+        test_description: "should not match when GC.run is not a jcmd command",
+    },
+]

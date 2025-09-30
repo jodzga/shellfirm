@@ -1,0 +1,50 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_stop.yaml",
+        test: "jcmd 1234 JFR.stop",
+        check_detection_ids: [
+            "java_jcmd:jfr_stop",
+        ],
+        test_description: "match basic JFR.stop command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_stop.yaml",
+        test: "jcmd 5678 JFR.stop name=myrecording",
+        check_detection_ids: [
+            "java_jcmd:jfr_stop",
+        ],
+        test_description: "match JFR.stop with recording name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_stop.yaml",
+        test: "jcmd java-process JFR.stop 1",
+        check_detection_ids: [
+            "java_jcmd:jfr_stop",
+        ],
+        test_description: "match JFR.stop with recording ID",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_stop.yaml",
+        test: "jcmd 1234 JFR.start",
+        check_detection_ids: [
+            "java_jcmd:jfr_start",
+        ],
+        test_description: "should match JFR.start (different check)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_stop.yaml",
+        test: "jcmd 1234 help JFR",
+        check_detection_ids: [],
+        test_description: "should not match help command for JFR",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_stop.yaml",
+        test: "systemctl stop jfr-service",
+        check_detection_ids: [],
+        test_description: "should not match when JFR.stop is not a jcmd command",
+    },
+]

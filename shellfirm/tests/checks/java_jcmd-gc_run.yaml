@@ -1,0 +1,27 @@
+---
+- test: jcmd 1234 GC.run
+  expected_detection_ids:
+    - java_jcmd:gc_run
+  description: match basic GC.run command
+
+- test: jcmd 5678 GC.run full
+  expected_detection_ids:
+    - java_jcmd:gc_run
+  description: match GC.run with parameters
+
+- test: jcmd java-process-name GC.run
+  expected_detection_ids:
+    - java_jcmd:gc_run
+  description: match GC.run with process name
+
+- test: jcmd 1234 GC.class_histogram
+  expected_detection_ids: []
+  description: should not match safe GC commands
+
+- test: jcmd 1234 help
+  expected_detection_ids: []
+  description: should not match help command
+
+- test: echo "GC.run" | grep something
+  expected_detection_ids: []
+  description: should not match when GC.run is not a jcmd command

@@ -1,0 +1,32 @@
+---
+- test: jcmd 1234 Compiler.directives_add /path/to/directives.json
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_add
+  description: match Compiler.directives_add with file path
+
+- test: jcmd java-process Compiler.directives_add compiler_directives.json
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_add
+  description: match Compiler.directives_add with process name
+
+- test: jcmd 5678 Compiler.directives_add ./directives/hot_methods.json
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_add
+  description: match Compiler.directives_add with relative path
+
+- test: jcmd 1234 Compiler.directives_remove
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_remove
+  description: should match Compiler.directives_remove (different check)
+
+- test: jcmd 1234 Compiler.codecache
+  expected_detection_ids: []
+  description: should not match safe Compiler commands
+
+- test: jcmd 1234 Compiler.codelist
+  expected_detection_ids: []
+  description: should not match Compiler.codelist command
+
+- test: cat compiler_directives.json
+  expected_detection_ids: []
+  description: should not match when Compiler.directives_add is not a jcmd command

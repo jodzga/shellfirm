@@ -1,0 +1,48 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_dump.yaml",
+        test: "jcmd 1234 JFR.dump filename=/tmp/recording.jfr",
+        check_detection_ids: [
+            "java_jcmd:jfr_dump",
+        ],
+        test_description: "match JFR.dump with filename",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_dump.yaml",
+        test: "jcmd 5678 JFR.dump name=myrecording filename=dump.jfr",
+        check_detection_ids: [
+            "java_jcmd:jfr_dump",
+        ],
+        test_description: "match JFR.dump with name and filename",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_dump.yaml",
+        test: "jcmd java-app JFR.dump 1 /path/to/recording.jfr",
+        check_detection_ids: [
+            "java_jcmd:jfr_dump",
+        ],
+        test_description: "match JFR.dump with ID and path",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_dump.yaml",
+        test: "jcmd 1234 JFR.check",
+        check_detection_ids: [],
+        test_description: "should not match JFR.check command (not implemented in this test)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_dump.yaml",
+        test: "jcmd 1234 Thread.print",
+        check_detection_ids: [],
+        test_description: "should not match safe Thread commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_dump.yaml",
+        test: "mysqldump database > dump.sql",
+        check_detection_ids: [],
+        test_description: "should not match when JFR.dump is not a jcmd command",
+    },
+]

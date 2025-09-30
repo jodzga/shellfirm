@@ -1,0 +1,50 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_stop.yaml",
+        test: "jcmd 1234 ManagementAgent.stop",
+        check_detection_ids: [
+            "java_jcmd:management_agent_stop",
+        ],
+        test_description: "match basic ManagementAgent.stop command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_stop.yaml",
+        test: "jcmd 5678 ManagementAgent.stop force=true",
+        check_detection_ids: [
+            "java_jcmd:management_agent_stop",
+        ],
+        test_description: "match ManagementAgent.stop with force option",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_stop.yaml",
+        test: "jcmd java-process ManagementAgent.stop",
+        check_detection_ids: [
+            "java_jcmd:management_agent_stop",
+        ],
+        test_description: "match ManagementAgent.stop with process name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_stop.yaml",
+        test: "jcmd 1234 ManagementAgent.start",
+        check_detection_ids: [
+            "java_jcmd:management_agent_start",
+        ],
+        test_description: "should match ManagementAgent.start (different check)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_stop.yaml",
+        test: "jcmd 1234 VM.uptime",
+        check_detection_ids: [],
+        test_description: "should not match safe VM commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-management_agent_stop.yaml",
+        test: "systemctl stop management-agent",
+        check_detection_ids: [],
+        test_description: "should not match when ManagementAgent.stop is not a jcmd command",
+    },
+]

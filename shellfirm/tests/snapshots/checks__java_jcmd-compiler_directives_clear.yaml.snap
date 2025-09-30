@@ -1,0 +1,50 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_clear.yaml",
+        test: "jcmd 1234 Compiler.directives_clear",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_clear",
+        ],
+        test_description: "match basic Compiler.directives_clear command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_clear.yaml",
+        test: "jcmd 5678 Compiler.directives_clear force",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_clear",
+        ],
+        test_description: "match Compiler.directives_clear with force option",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_clear.yaml",
+        test: "jcmd java-process Compiler.directives_clear",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_clear",
+        ],
+        test_description: "match Compiler.directives_clear with process name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_clear.yaml",
+        test: "jcmd 1234 Compiler.directives_remove",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_remove",
+        ],
+        test_description: "should match Compiler.directives_remove (different check)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_clear.yaml",
+        test: "jcmd 1234 Compiler.queue",
+        check_detection_ids: [],
+        test_description: "should not match safe Compiler commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_clear.yaml",
+        test: "clear",
+        check_detection_ids: [],
+        test_description: "should not match when Compiler.directives_clear is not a jcmd command",
+    },
+]

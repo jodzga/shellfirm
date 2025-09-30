@@ -1,0 +1,28 @@
+---
+- test: jcmd 1234 Compiler.directives_clear
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_clear
+  description: match basic Compiler.directives_clear command
+
+- test: jcmd 5678 Compiler.directives_clear force
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_clear
+  description: match Compiler.directives_clear with force option
+
+- test: jcmd java-process Compiler.directives_clear
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_clear
+  description: match Compiler.directives_clear with process name
+
+- test: jcmd 1234 Compiler.directives_remove
+  expected_detection_ids:
+    - java_jcmd:compiler_directives_remove
+  description: should match Compiler.directives_remove (different check)
+
+- test: jcmd 1234 Compiler.queue
+  expected_detection_ids: []
+  description: should not match safe Compiler commands
+
+- test: clear
+  expected_detection_ids: []
+  description: should not match when Compiler.directives_clear is not a jcmd command

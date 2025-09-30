@@ -1,0 +1,56 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "jcmd 1234 JFR.start",
+        check_detection_ids: [
+            "java_jcmd:jfr_start",
+        ],
+        test_description: "match basic JFR.start command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "jcmd 5678 JFR.start name=myrecording",
+        check_detection_ids: [
+            "java_jcmd:jfr_start",
+        ],
+        test_description: "match JFR.start with recording name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "jcmd java-process JFR.start duration=60s filename=recording.jfr",
+        check_detection_ids: [
+            "java_jcmd:jfr_start",
+        ],
+        test_description: "match JFR.start with duration and filename",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "jcmd my-app JFR.start settings=profile",
+        check_detection_ids: [
+            "java_jcmd:jfr_start",
+        ],
+        test_description: "match JFR.start with settings",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "jcmd 1234 JFR.check",
+        check_detection_ids: [],
+        test_description: "should not match JFR.check command (not implemented in this test)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "jcmd 1234 help JFR",
+        check_detection_ids: [],
+        test_description: "should not match help command for JFR",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-jfr_start.yaml",
+        test: "grep JFR.start application.log",
+        check_detection_ids: [],
+        test_description: "should not match when JFR.start is not a jcmd command",
+    },
+]

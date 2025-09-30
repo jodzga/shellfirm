@@ -1,0 +1,27 @@
+---
+- test: jcmd 1234 GC.heap_dump /tmp/heap.hprof
+  expected_detection_ids:
+    - java_jcmd:heap_dump
+  description: match heap dump with file path
+
+- test: jcmd 5678 GC.heap_dump -all /home/user/dumps/heap.hprof
+  expected_detection_ids:
+    - java_jcmd:heap_dump
+  description: match heap dump with options and file path
+
+- test: jcmd my-java-app GC.heap_dump heap_dump.hprof
+  expected_detection_ids:
+    - java_jcmd:heap_dump
+  description: match heap dump with process name
+
+- test: jcmd 1234 GC.class_histogram
+  expected_detection_ids: []
+  description: should not match class histogram command
+
+- test: jcmd 1234 Thread.print
+  expected_detection_ids: []
+  description: should not match thread dump command
+
+- test: ls heap_dump.hprof
+  expected_detection_ids: []
+  description: should not match when GC.heap_dump is not a jcmd command

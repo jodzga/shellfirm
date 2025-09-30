@@ -1,0 +1,28 @@
+---
+- test: jcmd 1234 JFR.stop
+  expected_detection_ids:
+    - java_jcmd:jfr_stop
+  description: match basic JFR.stop command
+
+- test: jcmd 5678 JFR.stop name=myrecording
+  expected_detection_ids:
+    - java_jcmd:jfr_stop
+  description: match JFR.stop with recording name
+
+- test: jcmd java-process JFR.stop 1
+  expected_detection_ids:
+    - java_jcmd:jfr_stop
+  description: match JFR.stop with recording ID
+
+- test: jcmd 1234 JFR.start
+  expected_detection_ids:
+    - java_jcmd:jfr_start
+  description: should match JFR.start (different check)
+
+- test: jcmd 1234 help JFR
+  expected_detection_ids: []
+  description: should not match help command for JFR
+
+- test: systemctl stop jfr-service
+  expected_detection_ids: []
+  description: should not match when JFR.stop is not a jcmd command

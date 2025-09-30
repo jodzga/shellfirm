@@ -1,0 +1,32 @@
+---
+- test: jcmd 1234 JFR.start
+  expected_detection_ids:
+    - java_jcmd:jfr_start
+  description: match basic JFR.start command
+
+- test: jcmd 5678 JFR.start name=myrecording
+  expected_detection_ids:
+    - java_jcmd:jfr_start
+  description: match JFR.start with recording name
+
+- test: jcmd java-process JFR.start duration=60s filename=recording.jfr
+  expected_detection_ids:
+    - java_jcmd:jfr_start
+  description: match JFR.start with duration and filename
+
+- test: jcmd my-app JFR.start settings=profile
+  expected_detection_ids:
+    - java_jcmd:jfr_start
+  description: match JFR.start with settings
+
+- test: jcmd 1234 JFR.check
+  expected_detection_ids: []
+  description: should not match JFR.check command (not implemented in this test)
+
+- test: jcmd 1234 help JFR
+  expected_detection_ids: []
+  description: should not match help command for JFR
+
+- test: grep JFR.start application.log
+  expected_detection_ids: []
+  description: should not match when JFR.start is not a jcmd command

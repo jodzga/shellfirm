@@ -1,0 +1,56 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "jcmd 1234 Compiler.directives_add /path/to/directives.json",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_add",
+        ],
+        test_description: "match Compiler.directives_add with file path",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "jcmd java-process Compiler.directives_add compiler_directives.json",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_add",
+        ],
+        test_description: "match Compiler.directives_add with process name",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "jcmd 5678 Compiler.directives_add ./directives/hot_methods.json",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_add",
+        ],
+        test_description: "match Compiler.directives_add with relative path",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "jcmd 1234 Compiler.directives_remove",
+        check_detection_ids: [
+            "java_jcmd:compiler_directives_remove",
+        ],
+        test_description: "should match Compiler.directives_remove (different check)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "jcmd 1234 Compiler.codecache",
+        check_detection_ids: [],
+        test_description: "should not match safe Compiler commands",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "jcmd 1234 Compiler.codelist",
+        check_detection_ids: [],
+        test_description: "should not match Compiler.codelist command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "java_jcmd-compiler_directives_add.yaml",
+        test: "cat compiler_directives.json",
+        check_detection_ids: [],
+        test_description: "should not match when Compiler.directives_add is not a jcmd command",
+    },
+]

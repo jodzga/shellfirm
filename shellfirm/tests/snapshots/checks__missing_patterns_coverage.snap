@@ -26,4 +26,9 @@ expression: not_covered
     "network:bring_down_interface",
     "network:bring_down_interface_ip",
     "network:delete_default_route",
+    "java_jcmd:gc_run_finalization",
+    "java_jcmd:vm_unlock_commercial",
+    "java_jcmd:compiler_directives_remove",
+    "java_jcmd:stringtable",
+    "java_jcmd:symboltable",
 ]
