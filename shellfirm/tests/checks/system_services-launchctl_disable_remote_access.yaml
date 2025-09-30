@@ -1,0 +1,20 @@
+---
+- test: launchctl bootout system/com.openssh.sshd
+  expected_detection_ids:
+    - system_services:launchctl_disable_remote_access
+  description: match launchctl bootout sshd
+
+- test: sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+  expected_detection_ids:
+    - system_services:launchctl_disable_remote_access
+  description: match launchctl unload ssh plist
+
+- test: launchctl remove com.apple.RemoteLogin
+  expected_detection_ids:
+    - system_services:launchctl_disable_remote_access
+  description: match launchctl remove RemoteLogin
+
+- test: launchctl list
+  expected_detection_ids: []
+  description: should not match listing services
+

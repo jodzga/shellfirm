@@ -1,0 +1,15 @@
+---
+- test: userdel alice
+  expected_detection_ids:
+    - user_accounts:userdel
+  description: match userdel command
+
+- test: sudo userdel -r alice
+  expected_detection_ids:
+    - user_accounts:userdel
+  description: match userdel with sudo and remove home
+
+- test: userdel
+  expected_detection_ids: []
+  description: should not match missing username
+

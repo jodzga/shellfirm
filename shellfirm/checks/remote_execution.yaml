@@ -1,0 +1,17 @@
+- from: remote_execution
+  test: '(?:curl|wget)\s+[^|]+\|\s*(?:sudo\s+)?(sh|bash|zsh|ksh|python3?)'
+  description: "You are piping remote content directly into a shell or interpreter. Verify the source and consider downloading before executing."
+  id: remote_execution:pipe_remote_to_shell
+- from: remote_execution
+  test: '(?:sudo\s+)?sh\s+-c\s+"\$\((?:curl|wget)\s+[^)]+\)"'
+  description: "You are executing the result of a remote download via command substitution. Ensure the fetched script is trusted."
+  id: remote_execution:command_substitution_remote
+- from: remote_execution
+  test: '(?:sudo\s+)?installer\s+-pkg\s+\S+\s+-target\s+/'
+  description: "macOS installer command will install a package system-wide. Ensure the pkg is verified and expected."
+  id: remote_execution:macos_installer_pkg
+- from: remote_execution
+  test: '(?:sudo\s+)?python3?\s+-c\s+"import\s+urllib\.request;\s*exec\(urllib\.request\.urlopen\([^)]*\)\.read\(\)\)"'
+  description: "Python is fetching and executing remote code. Verify the remote source and avoid inline exec of unverified content."
+  id: remote_execution:python_exec_remote
+

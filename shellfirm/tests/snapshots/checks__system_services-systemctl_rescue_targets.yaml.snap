@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_rescue_targets.yaml",
+        test: "systemctl isolate rescue.target",
+        check_detection_ids: [
+            "system_services:systemctl_rescue_targets",
+        ],
+        test_description: "match isolate rescue target",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_rescue_targets.yaml",
+        test: "sudo systemctl set-default emergency.target",
+        check_detection_ids: [
+            "system_services:systemctl_rescue_targets",
+        ],
+        test_description: "match set-default emergency target",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_rescue_targets.yaml",
+        test: "systemctl isolate graphical.target",
+        check_detection_ids: [],
+        test_description: "should not match non-rescue target",
+    },
+]

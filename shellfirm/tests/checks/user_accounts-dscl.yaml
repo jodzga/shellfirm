@@ -1,0 +1,15 @@
+---
+- test: dscl . -delete /Users/alice
+  expected_detection_ids:
+    - user_accounts:dscl_delete_user
+  description: match dscl delete user
+
+- test: sudo dscl . -create /Users/bob
+  expected_detection_ids:
+    - user_accounts:dscl_create_user
+  description: match dscl create user with sudo
+
+- test: dscl . -read /Users/alice
+  expected_detection_ids: []
+  description: should not match read command
+

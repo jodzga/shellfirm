@@ -1,0 +1,26 @@
+---
+- test: snap install microk8s --classic
+  expected_detection_ids:
+    - package_management:snap_operations
+  description: match snap install command
+
+- test: sudo snap remove microk8s
+  expected_detection_ids:
+    - package_management:snap_operations
+  description: match snap remove with sudo
+
+- test: snap refresh microk8s
+  expected_detection_ids:
+    - package_management:snap_operations
+  description: match snap refresh
+
+- test: snap refresh microk8s --beta
+  expected_detection_ids:
+    - package_management:snap_operations
+    - package_management:snap_refresh_non_stable
+  description: match snap refresh from beta channel
+
+- test: snap list
+  expected_detection_ids: []
+  description: should not match list command
+

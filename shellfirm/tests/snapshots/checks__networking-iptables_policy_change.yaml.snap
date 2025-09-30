@@ -1,0 +1,24 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-iptables_policy_change.yaml",
+        test: "iptables -P INPUT DROP",
+        check_detection_ids: [],
+        test_description: "match iptables default drop policy",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-iptables_policy_change.yaml",
+        test: "sudo iptables -P OUTPUT ACCEPT",
+        check_detection_ids: [],
+        test_description: "match iptables default accept policy with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-iptables_policy_change.yaml",
+        test: "iptables -A INPUT -j DROP",
+        check_detection_ids: [],
+        test_description: "should not match rule append",
+    },
+]

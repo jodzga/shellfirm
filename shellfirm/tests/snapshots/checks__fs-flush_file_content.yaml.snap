@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -47,5 +46,47 @@ snapshot_kind: text
         test: "cat \"test\" >> file.txt",
         check_detection_ids: [],
         test_description: "todo:: need to change the regex to skip this command when append data to file",
+    },
+    TestSensitivePatternsResult {
+        file_path: "fs-flush_file_content.yaml",
+        test: "ls -la test.txt 2>/dev/null",
+        check_detection_ids: [],
+        test_description: "redirect stderr to /dev/null - should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "fs-flush_file_content.yaml",
+        test: "cat file.txt > /dev/null",
+        check_detection_ids: [
+            "fs:flush_file_content",
+        ],
+        test_description: "redirect stdout to /dev/null with space - will trigger due to space before /dev/null",
+    },
+    TestSensitivePatternsResult {
+        file_path: "fs-flush_file_content.yaml",
+        test: "echo \"test\" >/dev/null",
+        check_detection_ids: [],
+        test_description: "redirect to /dev/null without space - should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "fs-flush_file_content.yaml",
+        test: "command 1>/dev/null 2>&1",
+        check_detection_ids: [],
+        test_description: "redirect both stdout and stderr to /dev/null - should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "fs-flush_file_content.yaml",
+        test: "cat example.txt > Cargo.toml",
+        check_detection_ids: [
+            "fs:flush_file_content",
+        ],
+        test_description: "normal file redirect - should trigger if Cargo.toml exists",
+    },
+    TestSensitivePatternsResult {
+        file_path: "fs-flush_file_content.yaml",
+        test: "cat /dev/null > Cargo.toml",
+        check_detection_ids: [
+            "fs:flush_file_content",
+        ],
+        test_description: "source is /dev/null but destination is real file - should trigger",
     },
 ]

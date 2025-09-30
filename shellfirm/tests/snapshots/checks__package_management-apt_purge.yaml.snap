@@ -1,0 +1,32 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_purge.yaml",
+        test: "apt remove --purge nginx",
+        check_detection_ids: [
+            "package_management:apt_remove",
+            "package_management:apt_purge",
+        ],
+        test_description: "match apt remove with purge flag",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_purge.yaml",
+        test: "sudo apt-get remove --purge nginx",
+        check_detection_ids: [
+            "package_management:apt_remove",
+            "package_management:apt_purge",
+        ],
+        test_description: "match apt-get purge with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_purge.yaml",
+        test: "apt remove nginx",
+        check_detection_ids: [
+            "package_management:apt_remove",
+        ],
+        test_description: "should still match general apt remove",
+    },
+]

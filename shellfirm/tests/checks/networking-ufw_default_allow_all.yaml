@@ -1,0 +1,20 @@
+---
+- test: sudo ufw default allow incoming
+  expected_detection_ids:
+    - networking:ufw_default_allow_all
+  description: match ufw default allow incoming
+
+- test: ufw allow from 0.0.0.0/0
+  expected_detection_ids:
+    - networking:ufw_default_allow_all
+  description: match ufw allow from any address
+
+- test: ufw default deny incoming
+  expected_detection_ids:
+    - networking:ufw_default_allow_all
+  description: match ufw default deny incoming
+
+- test: ufw status verbose
+  expected_detection_ids: []
+  description: should not match status command
+

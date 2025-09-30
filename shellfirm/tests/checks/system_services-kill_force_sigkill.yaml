@@ -1,0 +1,25 @@
+---
+- test: kill -9 1234
+  description: kill with -9 signal should trigger
+- test: sudo kill -9 5678
+  description: sudo kill with -9 signal should trigger
+- test: kill -SIGKILL 9999
+  description: kill with -SIGKILL should trigger
+- test: kill -KILL 4321
+  description: kill with -KILL should trigger
+- test: sudo kill -SIGKILL 8888
+  description: sudo kill with -SIGKILL should trigger
+- test: kill --signal 9 1234
+  description: kill with --signal 9 should trigger
+- test: kill --signal SIGKILL 5555
+  description: kill with --signal SIGKILL should trigger
+- test: kill --signal KILL 6666
+  description: kill with --signal KILL should trigger
+- test: kill -TERM 1234
+  description: kill with -TERM should not trigger
+- test: kill -HUP 5678
+  description: kill with -HUP should not trigger
+- test: kill 1234
+  description: kill without signal should not trigger
+- test: killall process
+  description: killall should not match this check

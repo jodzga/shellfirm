@@ -1,0 +1,36 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-macports.yaml",
+        test: "sudo port install nginx",
+        check_detection_ids: [
+            "package_management:macports_operations",
+        ],
+        test_description: "match port install command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-macports.yaml",
+        test: "port uninstall nginx",
+        check_detection_ids: [
+            "package_management:macports_operations",
+        ],
+        test_description: "match port uninstall command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-macports.yaml",
+        test: "port upgrade outdated",
+        check_detection_ids: [
+            "package_management:macports_operations",
+        ],
+        test_description: "match port upgrade command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-macports.yaml",
+        test: "port list installed",
+        check_detection_ids: [],
+        test_description: "should not match list command",
+    },
+]

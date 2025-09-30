@@ -1,11 +1,11 @@
 ---
 - test: systemctl stop NetworkManager
-  check_detection_ids:
+  expected_detection_ids:
     - network:stop_network_manager
   description: match command
 
 - test: sudo systemctl stop NetworkManager
-  check_detection_ids:
+  expected_detection_ids:
     - network:stop_network_manager
   description: match command with sudo
 

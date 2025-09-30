@@ -1,9 +1,21 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: not_covered
-snapshot_kind: text
 ---
 [
+    "remote_execution:pipe_remote_to_shell",
+    "remote_execution:command_substitution_remote",
+    "remote_execution:macos_installer_pkg",
+    "remote_execution:python_exec_remote",
+    "package_management:dpkg_install",
+    "package_management:dpkg_remove",
+    "package_management:snap_operations",
+    "package_management:snap_refresh_non_stable",
+    "package_management:brew_operations",
+    "package_management:macports_operations",
+    "package_management:mac_softwareupdate",
+    "user_accounts:dscl_delete_user",
+    "user_accounts:dscl_create_user",
     "network:flush_iptables",
     "network:delete_custom_chains",
     "network:flush_nat_rules",

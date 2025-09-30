@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -23,8 +22,10 @@ snapshot_kind: text
     TestSensitivePatternsResult {
         file_path: "network-delete-default-route.yaml",
         test: "route add default",
-        check_detection_ids: [],
-        test_description: "should not match add command",
+        check_detection_ids: [
+            "networking:route_add_default",
+        ],
+        test_description: "match should be handled by route add default check",
     },
     TestSensitivePatternsResult {
         file_path: "network-delete-default-route.yaml",

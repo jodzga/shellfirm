@@ -1,0 +1,15 @@
+---
+- test: usermod -G wheel alice
+  expected_detection_ids:
+    - user_accounts:usermod_group
+  description: match usermod group modification
+
+- test: sudo usermod -G sudo bob
+  expected_detection_ids:
+    - user_accounts:usermod_group
+  description: match usermod group modification with sudo
+
+- test: usermod -L alice
+  expected_detection_ids: []
+  description: should not match locking account
+

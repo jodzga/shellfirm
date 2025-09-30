@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-useradd.yaml",
+        test: "useradd alice",
+        check_detection_ids: [
+            "user_accounts:useradd",
+        ],
+        test_description: "match useradd command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-useradd.yaml",
+        test: "sudo useradd -m -s /bin/bash bob",
+        check_detection_ids: [
+            "user_accounts:useradd",
+        ],
+        test_description: "match useradd with sudo and options",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-useradd.yaml",
+        test: "id alice",
+        check_detection_ids: [],
+        test_description: "should not match id command",
+    },
+]

@@ -1,0 +1,15 @@
+---
+- test: passwd -l alice
+  expected_detection_ids:
+    - user_accounts:passwd_lock
+  description: match passwd lock command
+
+- test: sudo passwd -l root
+  expected_detection_ids:
+    - user_accounts:passwd_lock
+  description: match passwd lock with sudo
+
+- test: passwd alice
+  expected_detection_ids: []
+  description: should not match password change
+

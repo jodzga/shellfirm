@@ -1,0 +1,25 @@
+---
+- test: pkill nginx
+  description: pkill should trigger
+- test: sudo pkill apache2
+  description: sudo pkill should trigger
+- test: pkill -u username process
+  description: pkill with user flag should trigger
+- test: pkill -f "python script.py"
+  description: pkill with full match should trigger
+- test: pkill -x exact_name
+  description: pkill with exact match should trigger
+- test: pkill --signal TERM apache
+  description: pkill with signal should trigger
+- test: pkill -9 nginx
+  description: pkill with -9 should trigger (matches both checks)
+- test: pkill -SIGTERM mysql
+  description: pkill with SIGTERM should trigger
+- test: sudo pkill -HUP sshd
+  description: sudo pkill with HUP should trigger
+- test: pkill -P 1234 child
+  description: pkill with parent PID should trigger
+- test: kill 1234
+  description: kill should not match pkill check
+- test: killall nginx
+  description: killall should not match pkill check

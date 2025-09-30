@@ -11,10 +11,11 @@
   filters:
     IsExists: "1"
 - from: fs
-  test: .*>(.*)
+  test: .*>\s*([^\s]+)
   description: "The above command is used to flush the content of a file."
   filters:
     IsExists: "1"
+    NotContains: ">/dev/null"
   id: fs:flush_file_content
 - from: fs
   test: chmod\s{1,}(-R|--recursive)\s{1}(\*|\.{2,}|/)

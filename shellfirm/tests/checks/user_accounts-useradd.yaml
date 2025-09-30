@@ -1,0 +1,15 @@
+---
+- test: useradd alice
+  expected_detection_ids:
+    - user_accounts:useradd
+  description: match useradd command
+
+- test: sudo useradd -m -s /bin/bash bob
+  expected_detection_ids:
+    - user_accounts:useradd
+  description: match useradd with sudo and options
+
+- test: id alice
+  expected_detection_ids: []
+  description: should not match id command
+

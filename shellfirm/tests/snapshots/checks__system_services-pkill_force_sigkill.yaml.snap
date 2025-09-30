@@ -1,0 +1,111 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill -9 nginx",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with -9 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "sudo pkill -9 apache",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "sudo pkill with -9 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill -SIGKILL postgres",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with -SIGKILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill -KILL mysql",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with -KILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "sudo pkill -SIGKILL chrome",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "sudo pkill with -SIGKILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill --signal 9 firefox",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with --signal 9 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill --signal KILL nodejs",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with --signal KILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill -u user -9 process",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with user flag and -9 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill -f -9 \"python script.py\"",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with -f and -9 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill nginx",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill without signal should not match this check",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "pkill -TERM apache",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with -TERM should not match this check",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_force_sigkill.yaml",
+        test: "kill -9 1234",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill should not match pkill check",
+    },
+]

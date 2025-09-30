@@ -1,0 +1,20 @@
+---
+- test: service ssh stop
+  expected_detection_ids:
+    - system_services:service_manage_core_daemon
+  description: match service stop ssh
+
+- test: sudo service cron disable
+  expected_detection_ids:
+    - system_services:service_manage_core_daemon
+  description: match service disable cron with sudo
+
+- test: service ssh restart
+  expected_detection_ids:
+    - system_services:service_manage_core_daemon
+  description: match service restart ssh
+
+- test: service ssh status
+  expected_detection_ids: []
+  description: should not match status command
+

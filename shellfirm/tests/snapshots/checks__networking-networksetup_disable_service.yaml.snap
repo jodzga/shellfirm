@@ -1,0 +1,26 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-networksetup_disable_service.yaml",
+        test: "networksetup -setnetworkserviceenabled Wi-Fi off",
+        check_detection_ids: [
+            "networking:networksetup_disable_service",
+        ],
+        test_description: "match networksetup disable Wi-Fi",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-networksetup_disable_service.yaml",
+        test: "sudo networksetup -setnetworkserviceenabled \"Thunderbolt Bridge\" off",
+        check_detection_ids: [],
+        test_description: "match networksetup disable service with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-networksetup_disable_service.yaml",
+        test: "networksetup -setnetworkserviceenabled Wi-Fi on",
+        check_detection_ids: [],
+        test_description: "should not match enabling service",
+    },
+]

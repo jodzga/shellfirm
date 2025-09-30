@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-nmcli_networking_off.yaml",
+        test: "nmcli networking off",
+        check_detection_ids: [
+            "networking:nmcli_networking_off",
+        ],
+        test_description: "match nmcli networking off",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-nmcli_networking_off.yaml",
+        test: "sudo nmcli networking off",
+        check_detection_ids: [
+            "networking:nmcli_networking_off",
+        ],
+        test_description: "match nmcli networking off with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-nmcli_networking_off.yaml",
+        test: "nmcli networking on",
+        check_detection_ids: [],
+        test_description: "should not match networking on",
+    },
+]

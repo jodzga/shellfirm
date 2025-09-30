@@ -1,0 +1,16 @@
+---
+- test: ufw disable
+  expected_detection_ids:
+    - network:disable_firewall
+    - networking:ufw_disable_reset
+  description: match ufw disable command
+
+- test: sudo ufw reset
+  expected_detection_ids:
+    - networking:ufw_disable_reset
+  description: match ufw reset with sudo
+
+- test: ufw status
+  expected_detection_ids: []
+  description: should not match status command
+

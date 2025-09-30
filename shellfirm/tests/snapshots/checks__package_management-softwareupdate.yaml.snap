@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-softwareupdate.yaml",
+        test: "softwareupdate --install --all",
+        check_detection_ids: [
+            "package_management:mac_softwareupdate",
+        ],
+        test_description: "match macOS software update command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-softwareupdate.yaml",
+        test: "sudo softwareupdate --install Safari16.6",
+        check_detection_ids: [
+            "package_management:mac_softwareupdate",
+        ],
+        test_description: "match softwareupdate installing specific package with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-softwareupdate.yaml",
+        test: "softwareupdate --list",
+        check_detection_ids: [],
+        test_description: "should not match list updates",
+    },
+]

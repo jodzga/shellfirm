@@ -1,0 +1,27 @@
+---
+- test: apt remove nginx
+  expected_detection_ids:
+    - package_management:apt_remove
+  description: match apt remove command
+
+- test: sudo apt-get purge nginx
+  expected_detection_ids:
+    - package_management:apt_remove
+    - package_management:apt_purge
+  description: match apt-get purge with sudo
+
+- test: apt autoremove
+  expected_detection_ids:
+    - package_management:apt_remove
+  description: match apt autoremove
+
+- test: apt remove --purge nginx
+  expected_detection_ids:
+    - package_management:apt_remove
+    - package_management:apt_purge
+  description: match apt remove with purge flag
+
+- test: apt show nginx
+  expected_detection_ids: []
+  description: should not match informational command
+

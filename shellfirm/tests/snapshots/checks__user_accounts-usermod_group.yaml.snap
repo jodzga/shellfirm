@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-usermod_group.yaml",
+        test: "usermod -G wheel alice",
+        check_detection_ids: [
+            "user_accounts:usermod_group",
+        ],
+        test_description: "match usermod group modification",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-usermod_group.yaml",
+        test: "sudo usermod -G sudo bob",
+        check_detection_ids: [
+            "user_accounts:usermod_group",
+        ],
+        test_description: "match usermod group modification with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-usermod_group.yaml",
+        test: "usermod -L alice",
+        check_detection_ids: [],
+        test_description: "should not match locking account",
+    },
+]

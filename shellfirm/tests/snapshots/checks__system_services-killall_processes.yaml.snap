@@ -1,0 +1,70 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "killall nginx",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "killall should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "sudo killall apache2",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "sudo killall should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "killall -9 postgres",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "killall with signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "killall -SIGTERM mysql",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "killall with SIGTERM should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "sudo killall -HUP sshd",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "sudo killall with signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "killall --user root chrome",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "killall with user flag should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "kill -9 1234",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill should not match killall check",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-killall_processes.yaml",
+        test: "pkill nginx",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill should not match killall check",
+    },
+]

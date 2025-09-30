@@ -1,0 +1,34 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-brew_services_control.yaml",
+        test: "brew services stop nginx",
+        check_detection_ids: [
+            "system_services:brew_services_control",
+        ],
+        test_description: "match brew services stop",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-brew_services_control.yaml",
+        test: "sudo brew services kill nginx",
+        check_detection_ids: [
+            "system_services:brew_services_control",
+        ],
+        test_description: "match brew services kill with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-brew_services_control.yaml",
+        test: "brew services cleanup",
+        check_detection_ids: [],
+        test_description: "match brew services cleanup",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-brew_services_control.yaml",
+        test: "brew services list",
+        check_detection_ids: [],
+        test_description: "should not match list command",
+    },
+]

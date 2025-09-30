@@ -1,0 +1,20 @@
+---
+- test: brew services stop nginx
+  expected_detection_ids:
+    - system_services:brew_services_control
+  description: match brew services stop
+
+- test: sudo brew services kill nginx
+  expected_detection_ids:
+    - system_services:brew_services_control
+  description: match brew services kill with sudo
+
+- test: brew services cleanup
+  expected_detection_ids:
+    - system_services:brew_services_control
+  description: match brew services cleanup
+
+- test: brew services list
+  expected_detection_ids: []
+  description: should not match list command
+

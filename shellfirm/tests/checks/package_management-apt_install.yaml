@@ -1,0 +1,15 @@
+---
+- test: apt install nginx
+  expected_detection_ids:
+    - package_management:apt_install
+  description: match apt install command
+
+- test: sudo apt-get install build-essential
+  expected_detection_ids:
+    - package_management:apt_install
+  description: match apt-get install with sudo
+
+- test: apt search nginx
+  expected_detection_ids: []
+  description: should not match search command
+

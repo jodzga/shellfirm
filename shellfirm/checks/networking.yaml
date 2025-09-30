@@ -1,0 +1,25 @@
+- from: networking
+  test: '(?:sudo\s+)?iptables\s+.*\s+-P\s+(?:INPUT|OUTPUT|FORWARD)\s+(?:DROP|ACCEPT)'
+  description: "You are setting a default firewall policy. This can disrupt connectivity if misconfigured."
+  id: networking:iptables_policy_change
+- from: networking
+  test: '(?:sudo\s+)?ufw\s+(?:default\s+allow\s+(?:incoming|outgoing)|allow\s+.*(0\.0\.0\.0/0|::/0))'
+  description: "You are modifying UFW defaults or allowing open access to all. Double-check intended exposure."
+  id: networking:ufw_default_allow_all
+- from: networking
+  test: '(?:sudo\s+)?route\s+add\s+default'
+  description: "Adding a default route alters network traffic paths. Ensure this is intentional."
+  id: networking:route_add_default
+- from: networking
+  test: '(?:sudo\s+)?ifconfig\s+(?:en\d+|wl\S+|awdl0|bridge\d+|utun\d+)\s+down'
+  description: "You are taking a macOS network interface offline. Confirm you will not lose connectivity."
+  id: networking:ifconfig_interface_down
+- from: networking
+  test: '(?:sudo\s+)?nmcli\s+networking\s+off'
+  description: "Disabling networking via nmcli cuts all connections. Ensure you have alternative access."
+  id: networking:nmcli_networking_off
+- from: networking
+  test: '(?:sudo\s+)?networksetup\s+-setnetworkserviceenabled\s+\S+\s+(?:off|Off|OFF)'
+  description: "You are disabling a network service on macOS. Confirm you have local access or alternative connectivity."
+  id: networking:networksetup_disable_service
+

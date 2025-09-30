@@ -1,0 +1,26 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "virtualization-qemu_img_convert.yaml",
+        test: "qemu-img convert -O raw disk.qcow2 disk.raw",
+        check_detection_ids: [
+            "virtualization:qemu_img_convert",
+        ],
+        test_description: "match qemu-img convert command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-qemu_img_convert.yaml",
+        test: "sudo qemu-img convert -O qcow2 disk.raw disk.qcow2",
+        check_detection_ids: [],
+        test_description: "match qemu-img convert with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-qemu_img_convert.yaml",
+        test: "qemu-img info disk.qcow2",
+        check_detection_ids: [],
+        test_description: "should not match info command",
+    },
+]

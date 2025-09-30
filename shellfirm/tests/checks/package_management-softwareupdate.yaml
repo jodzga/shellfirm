@@ -1,0 +1,15 @@
+---
+- test: softwareupdate --install --all
+  expected_detection_ids:
+    - package_management:mac_softwareupdate
+  description: match macOS software update command
+
+- test: sudo softwareupdate --install Safari16.6
+  expected_detection_ids:
+    - package_management:mac_softwareupdate
+  description: match softwareupdate installing specific package with sudo
+
+- test: softwareupdate --list
+  expected_detection_ids: []
+  description: should not match list updates
+

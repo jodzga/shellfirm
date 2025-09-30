@@ -1,0 +1,36 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-launchctl_disable_remote_access.yaml",
+        test: "launchctl bootout system/com.openssh.sshd",
+        check_detection_ids: [
+            "system_services:launchctl_disable_remote_access",
+        ],
+        test_description: "match launchctl bootout sshd",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-launchctl_disable_remote_access.yaml",
+        test: "sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist",
+        check_detection_ids: [
+            "system_services:launchctl_disable_remote_access",
+        ],
+        test_description: "match launchctl unload ssh plist",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-launchctl_disable_remote_access.yaml",
+        test: "launchctl remove com.apple.RemoteLogin",
+        check_detection_ids: [
+            "system_services:launchctl_disable_remote_access",
+        ],
+        test_description: "match launchctl remove RemoteLogin",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-launchctl_disable_remote_access.yaml",
+        test: "launchctl list",
+        check_detection_ids: [],
+        test_description: "should not match listing services",
+    },
+]

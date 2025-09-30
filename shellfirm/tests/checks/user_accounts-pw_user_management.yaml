@@ -1,0 +1,20 @@
+---
+- test: pw useradd alice
+  expected_detection_ids:
+    - user_accounts:pw_user_management
+  description: match pw useradd command
+
+- test: sudo pw userdel bob
+  expected_detection_ids:
+    - user_accounts:pw_user_management
+  description: match pw userdel with sudo
+
+- test: pw usermod alice -G wheel
+  expected_detection_ids:
+    - user_accounts:pw_user_management
+  description: match pw usermod group change
+
+- test: pw groupshow wheel
+  expected_detection_ids: []
+  description: should not match group show command
+ 

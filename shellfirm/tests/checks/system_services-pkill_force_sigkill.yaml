@@ -1,0 +1,25 @@
+---
+- test: pkill -9 nginx
+  description: pkill with -9 should trigger
+- test: sudo pkill -9 apache
+  description: sudo pkill with -9 should trigger
+- test: pkill -SIGKILL postgres
+  description: pkill with -SIGKILL should trigger
+- test: pkill -KILL mysql
+  description: pkill with -KILL should trigger
+- test: sudo pkill -SIGKILL chrome
+  description: sudo pkill with -SIGKILL should trigger
+- test: pkill --signal 9 firefox
+  description: pkill with --signal 9 should trigger
+- test: pkill --signal KILL nodejs
+  description: pkill with --signal KILL should trigger
+- test: pkill -u user -9 process
+  description: pkill with user flag and -9 should trigger
+- test: pkill -f -9 "python script.py"
+  description: pkill with -f and -9 should trigger
+- test: pkill nginx
+  description: pkill without signal should not match this check
+- test: pkill -TERM apache
+  description: pkill with -TERM should not match this check
+- test: kill -9 1234
+  description: kill should not match pkill check

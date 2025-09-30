@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_upgrade.yaml",
+        test: "apt upgrade",
+        check_detection_ids: [
+            "package_management:apt_upgrade",
+        ],
+        test_description: "match apt upgrade command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_upgrade.yaml",
+        test: "sudo apt-get dist-upgrade",
+        check_detection_ids: [
+            "package_management:apt_upgrade",
+        ],
+        test_description: "match dist-upgrade with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_upgrade.yaml",
+        test: "apt list --upgradable",
+        check_detection_ids: [],
+        test_description: "should not match list upgradable packages",
+    },
+]

@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -51,7 +50,9 @@ snapshot_kind: text
     TestSensitivePatternsResult {
         file_path: "network-bring-down-interface.yaml",
         test: "ifconfig wlan0 down",
-        check_detection_ids: [],
-        test_description: "should not match non-eth interface",
+        check_detection_ids: [
+            "networking:ifconfig_interface_down",
+        ],
+        test_description: "match ifconfig bringing wifi interface down",
     },
 ]

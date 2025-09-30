@@ -1,0 +1,45 @@
+- from: package_management
+  test: '(?:sudo\s+)?apt(?:-get)?\s+install\b'
+  description: "You are about to install new packages on the system. Ensure the source is trusted and compatible with your environment."
+  id: package_management:apt_install
+- from: package_management
+  test: '(?:sudo\s+)?apt(?:-get)?\s+(remove|purge|autoremove)\b'
+  description: "You are about to remove packages and potentially their configuration. Double-check to avoid removing critical software."
+  id: package_management:apt_remove
+- from: package_management
+  test: '(?:sudo\s+)?apt(?:-get)?\s+(upgrade|full-upgrade|dist-upgrade)\b'
+  description: "You are about to perform a system-wide upgrade which may change core packages. Confirm maintenance windows and backups."
+  id: package_management:apt_upgrade
+- from: package_management
+  test: '(?:sudo\s+)?dpkg\s+-i\b'
+  description: "You are about to manually install a package with dpkg. Verify the package origin and dependencies."
+  id: package_management:dpkg_install
+- from: package_management
+  test: '(?:sudo\s+)?dpkg\s+-(?:r|P)\b'
+  description: "You are about to remove or purge packages with dpkg. Ensure no critical dependencies are affected."
+  id: package_management:dpkg_remove
+- from: package_management
+  test: '(?:sudo\s+)?snap\s+(install|remove|refresh)\b'
+  description: "You are about to install, remove, or refresh Snap packages. Confirm that this change is intended."
+  id: package_management:snap_operations
+- from: package_management
+  test: '(?:sudo\s+)?snap\s+refresh\s+--(?:beta|edge|candidate)\b'
+  description: "You are refreshing Snap packages to non-stable channels. Confirm this is intended for production systems."
+  id: package_management:snap_refresh_non_stable
+- from: package_management
+  test: '(?:sudo\s+)?apt(?:-get)?\s+remove\s+--purge\s+\S+'
+  description: "You are purging packages and configuration files. Confirm that no critical components are removed."
+  id: package_management:apt_purge
+- from: package_management
+  test: '(?:sudo\s+)?brew\s+(install|upgrade|uninstall|cleanup)\b'
+  description: "You are about to modify Homebrew packages. Review the target formulae to avoid unintended changes."
+  id: package_management:brew_operations
+- from: package_management
+  test: '(?:sudo\s+)?port\s+(install|upgrade|uninstall)\b'
+  description: "You are about to modify MacPorts packages. Confirm the target ports and potential impacts."
+  id: package_management:macports_operations
+- from: package_management
+  test: '(?:sudo\s+)?softwareupdate\s+--install\b'
+  description: "You are about to install macOS software updates. Ensure you are prepared for reboots or service interruptions."
+  id: package_management:mac_softwareupdate
+

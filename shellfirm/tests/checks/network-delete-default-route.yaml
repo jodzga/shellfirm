@@ -10,8 +10,9 @@
   description: match command with sudo
 
 - test: route add default
-  check_detection_ids: []
-  description: should not match add command
+  check_detection_ids:
+    - networking:route_add_default
+  description: match should be handled by route add default check
 
 - test: route show
   check_detection_ids: []

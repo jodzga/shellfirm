@@ -1,0 +1,15 @@
+---
+- test: virsh destroy myvm
+  expected_detection_ids:
+    - virtualization:virsh_destroy_domain
+  description: match virsh destroy command
+
+- test: sudo virsh destroy production
+  expected_detection_ids:
+    - virtualization:virsh_destroy_domain
+  description: match virsh destroy with sudo
+
+- test: virsh suspend myvm
+  expected_detection_ids: []
+  description: should not match suspend command
+

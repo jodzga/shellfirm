@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "virtualization-virsh_undefine_domain.yaml",
+        test: "virsh undefine myvm",
+        check_detection_ids: [
+            "virtualization:virsh_undefine_domain",
+        ],
+        test_description: "match virsh undefine command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-virsh_undefine_domain.yaml",
+        test: "sudo virsh undefine --remove-all-storage myvm",
+        check_detection_ids: [
+            "virtualization:virsh_undefine_domain",
+        ],
+        test_description: "match virsh undefine with sudo and remove storage",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-virsh_undefine_domain.yaml",
+        test: "virsh list --all",
+        check_detection_ids: [],
+        test_description: "should not match list command",
+    },
+]

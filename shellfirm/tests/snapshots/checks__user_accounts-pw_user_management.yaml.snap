@@ -1,0 +1,36 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-pw_user_management.yaml",
+        test: "pw useradd alice",
+        check_detection_ids: [
+            "user_accounts:pw_user_management",
+        ],
+        test_description: "match pw useradd command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-pw_user_management.yaml",
+        test: "sudo pw userdel bob",
+        check_detection_ids: [
+            "user_accounts:pw_user_management",
+        ],
+        test_description: "match pw userdel with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-pw_user_management.yaml",
+        test: "pw usermod alice -G wheel",
+        check_detection_ids: [
+            "user_accounts:pw_user_management",
+        ],
+        test_description: "match pw usermod group change",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-pw_user_management.yaml",
+        test: "pw groupshow wheel",
+        check_detection_ids: [],
+        test_description: "should not match group show command",
+    },
+]

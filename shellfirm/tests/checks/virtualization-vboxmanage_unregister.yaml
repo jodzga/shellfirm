@@ -1,0 +1,15 @@
+---
+- test: VBoxManage unregistervm myvm --delete
+  expected_detection_ids:
+    - virtualization:vboxmanage_unregister
+  description: match VBoxManage unregister with delete
+
+- test: sudo VBoxManage unregistervm myvm
+  expected_detection_ids:
+    - virtualization:vboxmanage_unregister
+  description: match VBoxManage unregister with sudo
+
+- test: VBoxManage list vms
+  expected_detection_ids: []
+  description: should not match list command
+

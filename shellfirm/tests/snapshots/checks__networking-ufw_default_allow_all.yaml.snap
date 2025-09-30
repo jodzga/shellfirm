@@ -1,0 +1,34 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_default_allow_all.yaml",
+        test: "sudo ufw default allow incoming",
+        check_detection_ids: [
+            "networking:ufw_default_allow_all",
+        ],
+        test_description: "match ufw default allow incoming",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_default_allow_all.yaml",
+        test: "ufw allow from 0.0.0.0/0",
+        check_detection_ids: [
+            "networking:ufw_default_allow_all",
+        ],
+        test_description: "match ufw allow from any address",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_default_allow_all.yaml",
+        test: "ufw default deny incoming",
+        check_detection_ids: [],
+        test_description: "match ufw default deny incoming",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_default_allow_all.yaml",
+        test: "ufw status verbose",
+        check_detection_ids: [],
+        test_description: "should not match status command",
+    },
+]

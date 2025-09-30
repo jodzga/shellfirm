@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-userdel.yaml",
+        test: "userdel alice",
+        check_detection_ids: [
+            "user_accounts:userdel",
+        ],
+        test_description: "match userdel command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-userdel.yaml",
+        test: "sudo userdel -r alice",
+        check_detection_ids: [
+            "user_accounts:userdel",
+        ],
+        test_description: "match userdel with sudo and remove home",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-userdel.yaml",
+        test: "userdel",
+        check_detection_ids: [],
+        test_description: "should not match missing username",
+    },
+]

@@ -1,0 +1,23 @@
+---
+- test: kill 1
+  description: kill PID 1 should trigger
+- test: sudo kill 1
+  description: sudo kill PID 1 should trigger
+- test: kill -TERM 1
+  description: kill PID 1 with TERM signal should trigger
+- test: kill -9 1
+  description: kill PID 1 with -9 should trigger (matches both checks)
+- test: kill -SIGKILL 1
+  description: kill PID 1 with SIGKILL should trigger (matches both checks)
+- test: sudo kill -HUP 1
+  description: sudo kill PID 1 with HUP should trigger
+- test: kill init
+  description: kill init should trigger
+- test: sudo kill -TERM init
+  description: sudo kill init with signal should trigger
+- test: kill 1234
+  description: kill other PID should not trigger
+- test: kill 10
+  description: kill PID 10 should not trigger
+- test: kill 100
+  description: kill PID 100 should not trigger

@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -24,7 +23,7 @@ snapshot_kind: text
         file_path: "network-force-reset-firewall.yaml",
         test: "ufw reset",
         check_detection_ids: [],
-        test_description: "should not match without force flag",
+        test_description: "match ufw reset without force flag",
     },
     TestSensitivePatternsResult {
         file_path: "network-force-reset-firewall.yaml",

@@ -1,0 +1,36 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_disable_core_services.yaml",
+        test: "systemctl stop sshd",
+        check_detection_ids: [
+            "system_services:systemctl_disable_core_services",
+        ],
+        test_description: "match systemctl stop sshd",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_disable_core_services.yaml",
+        test: "sudo systemctl disable firewalld",
+        check_detection_ids: [
+            "system_services:systemctl_disable_core_services",
+        ],
+        test_description: "match systemctl disable firewalld with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_disable_core_services.yaml",
+        test: "sudo systemctl mask cron",
+        check_detection_ids: [
+            "system_services:systemctl_disable_core_services",
+        ],
+        test_description: "match systemctl mask cron",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-systemctl_disable_core_services.yaml",
+        test: "systemctl restart sshd",
+        check_detection_ids: [],
+        test_description: "should not match restart command",
+    },
+]

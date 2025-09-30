@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-dscl.yaml",
+        test: "dscl . -delete /Users/alice",
+        check_detection_ids: [
+            "user_accounts:dscl_delete_user",
+        ],
+        test_description: "match dscl delete user",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-dscl.yaml",
+        test: "sudo dscl . -create /Users/bob",
+        check_detection_ids: [
+            "user_accounts:dscl_create_user",
+        ],
+        test_description: "match dscl create user with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-dscl.yaml",
+        test: "dscl . -read /Users/alice",
+        check_detection_ids: [],
+        test_description: "should not match read command",
+    },
+]

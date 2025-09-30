@@ -1,0 +1,15 @@
+---
+- test: ifconfig en0 down
+  expected_detection_ids:
+    - networking:ifconfig_interface_down
+  description: match ifconfig interface down
+
+- test: sudo ifconfig wlan0 down
+  expected_detection_ids:
+    - networking:ifconfig_interface_down
+  description: match ifconfig interface down with sudo
+
+- test: ifconfig en0 up
+  expected_detection_ids: []
+  description: should not match bringing interface up
+

@@ -1,0 +1,26 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_disable_reset.yaml",
+        test: "ufw disable",
+        check_detection_ids: [
+            "network:disable_firewall",
+        ],
+        test_description: "match ufw disable command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_disable_reset.yaml",
+        test: "sudo ufw reset",
+        check_detection_ids: [],
+        test_description: "match ufw reset with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ufw_disable_reset.yaml",
+        test: "ufw status",
+        check_detection_ids: [],
+        test_description: "should not match status command",
+    },
+]

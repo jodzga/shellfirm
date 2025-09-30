@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_install.yaml",
+        test: "apt install nginx",
+        check_detection_ids: [
+            "package_management:apt_install",
+        ],
+        test_description: "match apt install command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_install.yaml",
+        test: "sudo apt-get install build-essential",
+        check_detection_ids: [
+            "package_management:apt_install",
+        ],
+        test_description: "match apt-get install with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-apt_install.yaml",
+        test: "apt search nginx",
+        check_detection_ids: [],
+        test_description: "should not match search command",
+    },
+]

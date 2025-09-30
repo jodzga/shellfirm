@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-route_add_default.yaml",
+        test: "route add default gw 10.0.0.1",
+        check_detection_ids: [
+            "networking:route_add_default",
+        ],
+        test_description: "match route add default command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-route_add_default.yaml",
+        test: "sudo route add default 10.0.0.1",
+        check_detection_ids: [
+            "networking:route_add_default",
+        ],
+        test_description: "match route add default with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-route_add_default.yaml",
+        test: "route delete default gw 10.0.0.1",
+        check_detection_ids: [],
+        test_description: "should not duplicate delete default route check",
+    },
+]

@@ -1,0 +1,15 @@
+---
+- test: route add default gw 10.0.0.1
+  expected_detection_ids:
+    - networking:route_add_default
+  description: match route add default command
+
+- test: sudo route add default 10.0.0.1
+  expected_detection_ids:
+    - networking:route_add_default
+  description: match route add default with sudo
+
+- test: route delete default gw 10.0.0.1
+  expected_detection_ids: []
+  description: should not duplicate delete default route check
+

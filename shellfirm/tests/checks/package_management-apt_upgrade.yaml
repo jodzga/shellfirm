@@ -1,0 +1,15 @@
+---
+- test: apt upgrade
+  expected_detection_ids:
+    - package_management:apt_upgrade
+  description: match apt upgrade command
+
+- test: sudo apt-get dist-upgrade
+  expected_detection_ids:
+    - package_management:apt_upgrade
+  description: match dist-upgrade with sudo
+
+- test: apt list --upgradable
+  expected_detection_ids: []
+  description: should not match list upgradable packages
+

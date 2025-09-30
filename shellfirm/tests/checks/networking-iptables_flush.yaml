@@ -1,0 +1,15 @@
+---
+- test: iptables -F
+  expected_detection_ids:
+    - networking:iptables_flush
+  description: match iptables flush command
+
+- test: sudo iptables -F
+  expected_detection_ids:
+    - networking:iptables_flush
+  description: match iptables flush with sudo
+
+- test: iptables -L
+  expected_detection_ids: []
+  description: should not match list command
+

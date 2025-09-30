@@ -1,0 +1,36 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-service_manage_core_daemon.yaml",
+        test: "service ssh stop",
+        check_detection_ids: [
+            "system_services:service_manage_core_daemon",
+        ],
+        test_description: "match service stop ssh",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-service_manage_core_daemon.yaml",
+        test: "sudo service cron disable",
+        check_detection_ids: [
+            "system_services:service_manage_core_daemon",
+        ],
+        test_description: "match service disable cron with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-service_manage_core_daemon.yaml",
+        test: "service ssh restart",
+        check_detection_ids: [
+            "system_services:service_manage_core_daemon",
+        ],
+        test_description: "match service restart ssh",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-service_manage_core_daemon.yaml",
+        test: "service ssh status",
+        check_detection_ids: [],
+        test_description: "should not match status command",
+    },
+]

@@ -1,0 +1,17 @@
+---
+- test: killall nginx
+  description: killall should trigger
+- test: sudo killall apache2
+  description: sudo killall should trigger
+- test: killall -9 postgres
+  description: killall with signal should trigger
+- test: killall -SIGTERM mysql
+  description: killall with SIGTERM should trigger
+- test: sudo killall -HUP sshd
+  description: sudo killall with signal should trigger
+- test: killall --user root chrome
+  description: killall with user flag should trigger
+- test: kill -9 1234
+  description: kill should not match killall check
+- test: pkill nginx
+  description: pkill should not match killall check

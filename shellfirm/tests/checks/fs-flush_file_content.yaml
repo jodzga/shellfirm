@@ -11,3 +11,15 @@
   description: flush content with spaces
 - test: cat "test" >> file.txt
   description: "todo:: need to change the regex to skip this command when append data to file"
+- test: ls -la test.txt 2>/dev/null
+  description: redirect stderr to /dev/null - should not trigger
+- test: cat file.txt > /dev/null
+  description: redirect stdout to /dev/null with space - will trigger due to space before /dev/null
+- test: echo "test" >/dev/null
+  description: redirect to /dev/null without space - should not trigger
+- test: command 1>/dev/null 2>&1
+  description: redirect both stdout and stderr to /dev/null - should not trigger
+- test: cat example.txt > Cargo.toml
+  description: normal file redirect - should trigger if Cargo.toml exists
+- test: cat /dev/null > Cargo.toml
+  description: source is /dev/null but destination is real file - should trigger

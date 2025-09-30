@@ -1,0 +1,26 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "virtualization-vboxmanage_unregister.yaml",
+        test: "VBoxManage unregistervm myvm --delete",
+        check_detection_ids: [
+            "virtualization:vboxmanage_unregister",
+        ],
+        test_description: "match VBoxManage unregister with delete",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-vboxmanage_unregister.yaml",
+        test: "sudo VBoxManage unregistervm myvm",
+        check_detection_ids: [],
+        test_description: "match VBoxManage unregister with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-vboxmanage_unregister.yaml",
+        test: "VBoxManage list vms",
+        check_detection_ids: [],
+        test_description: "should not match list command",
+    },
+]

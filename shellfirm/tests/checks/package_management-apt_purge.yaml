@@ -1,0 +1,17 @@
+---
+- test: apt remove --purge nginx
+  expected_detection_ids:
+    - package_management:apt_purge
+  description: match apt remove with purge flag
+
+- test: sudo apt-get remove --purge nginx
+  expected_detection_ids:
+    - package_management:apt_purge
+    - package_management:apt_remove
+  description: match apt-get purge with sudo
+
+- test: apt remove nginx
+  expected_detection_ids:
+    - package_management:apt_remove
+  description: should still match general apt remove
+

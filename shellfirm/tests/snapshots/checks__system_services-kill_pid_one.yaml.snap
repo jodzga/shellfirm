@@ -1,0 +1,89 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill 1",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+        ],
+        test_description: "kill PID 1 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "sudo kill 1",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+        ],
+        test_description: "sudo kill PID 1 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill -TERM 1",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+        ],
+        test_description: "kill PID 1 with TERM signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill -9 1",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill PID 1 with -9 should trigger (matches both checks)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill -SIGKILL 1",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill PID 1 with SIGKILL should trigger (matches both checks)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "sudo kill -HUP 1",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+        ],
+        test_description: "sudo kill PID 1 with HUP should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill init",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+        ],
+        test_description: "kill init should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "sudo kill -TERM init",
+        check_detection_ids: [
+            "system_services:kill_pid_one",
+        ],
+        test_description: "sudo kill init with signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill 1234",
+        check_detection_ids: [],
+        test_description: "kill other PID should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill 10",
+        check_detection_ids: [],
+        test_description: "kill PID 10 should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_pid_one.yaml",
+        test: "kill 100",
+        check_detection_ids: [],
+        test_description: "kill PID 100 should not trigger",
+    },
+]

@@ -1,0 +1,15 @@
+---
+- test: systemctl isolate rescue.target
+  expected_detection_ids:
+    - system_services:systemctl_rescue_targets
+  description: match isolate rescue target
+
+- test: sudo systemctl set-default emergency.target
+  expected_detection_ids:
+    - system_services:systemctl_rescue_targets
+  description: match set-default emergency target
+
+- test: systemctl isolate graphical.target
+  expected_detection_ids: []
+  description: should not match non-rescue target
+

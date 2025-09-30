@@ -1,0 +1,15 @@
+---
+- test: qemu-img convert -O raw disk.qcow2 disk.raw
+  expected_detection_ids:
+    - virtualization:qemu_img_convert
+  description: match qemu-img convert command
+
+- test: sudo qemu-img convert -O qcow2 disk.raw disk.qcow2
+  expected_detection_ids:
+    - virtualization:qemu_img_convert
+  description: match qemu-img convert with sudo
+
+- test: qemu-img info disk.qcow2
+  expected_detection_ids: []
+  description: should not match info command
+

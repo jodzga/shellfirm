@@ -1,0 +1,101 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill nginx",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "sudo pkill apache2",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "sudo pkill should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill -u username process",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with user flag should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill -f \"python script.py\"",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with full match should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill -x exact_name",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with exact match should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill --signal TERM apache",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill -9 nginx",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+            "system_services:pkill_force_sigkill",
+        ],
+        test_description: "pkill with -9 should trigger (matches both checks)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill -SIGTERM mysql",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with SIGTERM should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "sudo pkill -HUP sshd",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "sudo pkill with HUP should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "pkill -P 1234 child",
+        check_detection_ids: [
+            "system_services:pkill_pattern_match",
+        ],
+        test_description: "pkill with parent PID should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "kill 1234",
+        check_detection_ids: [],
+        test_description: "kill should not match pkill check",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-pkill_pattern_match.yaml",
+        test: "killall nginx",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "killall should not match pkill check",
+    },
+]

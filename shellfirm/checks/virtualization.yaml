@@ -1,0 +1,21 @@
+- from: virtualization
+  test: '(?:sudo\s+)?virsh\s+destroy\s+\S+'
+  description: "You are forcefully stopping a libvirt domain. Confirm you intend to instantly power off the VM."
+  id: virtualization:virsh_destroy_domain
+- from: virtualization
+  test: '(?:sudo\s+)?virsh\s+undefine\s+\S+'
+  description: "You are removing a libvirt domain definition. Verify you have backups of VM configuration."
+  id: virtualization:virsh_undefine_domain
+- from: virtualization
+  test: '(?:sudo\s+)?VBoxManage\s+unregistervm\s+\S+\s+(?:--delete)?'
+  description: "You are deregistering a VirtualBox VM, possibly deleting its disks. Ensure critical data is backed up."
+  id: virtualization:vboxmanage_unregister
+- from: virtualization
+  test: '(?:sudo\s+)?vmware\s-cmd\s+\S+\s+stop'
+  description: "You are stopping a VMware VM. Confirm you are ready for downtime."
+  id: virtualization:vmware_stop_vm
+- from: virtualization
+  test: '(?:sudo\s+)?qemu-img\s+convert\s+.*\.qcow2\s+.*\.raw'
+  description: "Converting VM images may overwrite files. Double-check target paths and storage space."
+  id: virtualization:qemu_img_convert
+

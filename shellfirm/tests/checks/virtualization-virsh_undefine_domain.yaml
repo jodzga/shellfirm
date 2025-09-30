@@ -1,0 +1,15 @@
+---
+- test: virsh undefine myvm
+  expected_detection_ids:
+    - virtualization:virsh_undefine_domain
+  description: match virsh undefine command
+
+- test: sudo virsh undefine --remove-all-storage myvm
+  expected_detection_ids:
+    - virtualization:virsh_undefine_domain
+  description: match virsh undefine with sudo and remove storage
+
+- test: virsh list --all
+  expected_detection_ids: []
+  description: should not match list command
+

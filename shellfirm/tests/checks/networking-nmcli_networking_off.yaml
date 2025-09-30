@@ -1,0 +1,15 @@
+---
+- test: nmcli networking off
+  expected_detection_ids:
+    - networking:nmcli_networking_off
+  description: match nmcli networking off
+
+- test: sudo nmcli networking off
+  expected_detection_ids:
+    - networking:nmcli_networking_off
+  description: match nmcli networking off with sudo
+
+- test: nmcli networking on
+  expected_detection_ids: []
+  description: should not match networking on
+

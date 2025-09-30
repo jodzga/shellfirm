@@ -1,0 +1,29 @@
+- from: user_accounts
+  test: '^\s*(?:sudo\s+)?userdel\s+\S+'
+  description: "You are about to delete a user account. Verify that this user is no longer needed and backup data if necessary."
+  id: user_accounts:userdel
+- from: user_accounts
+  test: '^\s*(?:sudo\s+)?useradd\s+\S+'
+  description: "You are creating a new user account. Ensure you apply secure defaults and follow provisioning policies."
+  id: user_accounts:useradd
+- from: user_accounts
+  test: '^\s*(?:sudo\s+)?usermod\s+-G\s+\S+\s+\S+'
+  description: "You are modifying user group memberships. Confirm this aligns with least privilege principles."
+  id: user_accounts:usermod_group
+- from: user_accounts
+  test: '^\s*(?:sudo\s+)?passwd\s+-l\s+\S+'
+  description: "You are locking a user account. Confirm the user should be disabled and has no active sessions."
+  id: user_accounts:passwd_lock
+- from: user_accounts
+  test: '(?:sudo\s+)?dscl\s*\.\s*-delete\s+/Users/\S+'
+  description: "You are deleting a macOS user via dscl. Ensure data backups and account retirement procedures are complete."
+  id: user_accounts:dscl_delete_user
+- from: user_accounts
+  test: '(?:sudo\s+)?dscl\s*\.\s*-create\s+/Users/\S+'
+  description: "You are creating a macOS user via dscl. Ensure account settings follow security guidelines."
+  id: user_accounts:dscl_create_user
+- from: user_accounts
+  test: '(?:sudo\s+)?pw\s+user(?:add|del|mod)\s+\S+'
+  description: "You are managing BSD user accounts. Verify the command parameters to avoid misconfiguration."
+  id: user_accounts:pw_user_management
+

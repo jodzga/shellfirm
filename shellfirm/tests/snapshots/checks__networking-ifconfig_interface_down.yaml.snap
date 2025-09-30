@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "networking-ifconfig_interface_down.yaml",
+        test: "ifconfig en0 down",
+        check_detection_ids: [
+            "networking:ifconfig_interface_down",
+        ],
+        test_description: "match ifconfig interface down",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ifconfig_interface_down.yaml",
+        test: "sudo ifconfig wlan0 down",
+        check_detection_ids: [
+            "networking:ifconfig_interface_down",
+        ],
+        test_description: "match ifconfig interface down with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "networking-ifconfig_interface_down.yaml",
+        test: "ifconfig en0 up",
+        check_detection_ids: [],
+        test_description: "should not match bringing interface up",
+    },
+]

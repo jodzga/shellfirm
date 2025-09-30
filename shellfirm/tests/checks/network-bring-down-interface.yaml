@@ -28,5 +28,6 @@
   description: should not match up command with ip link
 
 - test: ifconfig wlan0 down
-  check_detection_ids: []
-  description: should not match non-eth interface
+  check_detection_ids:
+    - networking:ifconfig_interface_down
+  description: match ifconfig bringing wifi interface down

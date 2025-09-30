@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-passwd_lock.yaml",
+        test: "passwd -l alice",
+        check_detection_ids: [
+            "user_accounts:passwd_lock",
+        ],
+        test_description: "match passwd lock command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-passwd_lock.yaml",
+        test: "sudo passwd -l root",
+        check_detection_ids: [
+            "user_accounts:passwd_lock",
+        ],
+        test_description: "match passwd lock with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "user_accounts-passwd_lock.yaml",
+        test: "passwd alice",
+        check_detection_ids: [],
+        test_description: "should not match password change",
+    },
+]

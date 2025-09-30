@@ -1,0 +1,25 @@
+---
+- test: dpkg -i package.deb
+  expected_detection_ids:
+    - package_management:dpkg_install
+  description: match dpkg install command
+
+- test: sudo dpkg -i ./app.deb
+  expected_detection_ids:
+    - package_management:dpkg_install
+  description: match dpkg install with sudo
+
+- test: dpkg -r nginx
+  expected_detection_ids:
+    - package_management:dpkg_remove
+  description: match dpkg remove command
+
+- test: dpkg -P nginx
+  expected_detection_ids:
+    - package_management:dpkg_remove
+  description: match dpkg purge command
+
+- test: dpkg -l nginx
+  expected_detection_ids: []
+  description: should not match listing packages
+

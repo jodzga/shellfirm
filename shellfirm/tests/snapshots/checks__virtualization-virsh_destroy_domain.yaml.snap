@@ -1,0 +1,28 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "virtualization-virsh_destroy_domain.yaml",
+        test: "virsh destroy myvm",
+        check_detection_ids: [
+            "virtualization:virsh_destroy_domain",
+        ],
+        test_description: "match virsh destroy command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-virsh_destroy_domain.yaml",
+        test: "sudo virsh destroy production",
+        check_detection_ids: [
+            "virtualization:virsh_destroy_domain",
+        ],
+        test_description: "match virsh destroy with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "virtualization-virsh_destroy_domain.yaml",
+        test: "virsh suspend myvm",
+        check_detection_ids: [],
+        test_description: "should not match suspend command",
+    },
+]

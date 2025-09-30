@@ -1,0 +1,15 @@
+---
+- test: vmware-cmd /path/to/vm.vmx stop hard
+  expected_detection_ids:
+    - virtualization:vmware_stop_vm
+  description: match vmware stop hard
+
+- test: sudo vmware-cmd /path/to/vm.vmx stop
+  expected_detection_ids:
+    - virtualization:vmware_stop_vm
+  description: match vmware stop with sudo
+
+- test: vmware-cmd /path/to/vm.vmx start
+  expected_detection_ids: []
+  description: should not match start command
+

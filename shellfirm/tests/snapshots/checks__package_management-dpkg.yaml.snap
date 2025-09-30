@@ -1,0 +1,44 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-dpkg.yaml",
+        test: "dpkg -i package.deb",
+        check_detection_ids: [
+            "package_management:dpkg_install",
+        ],
+        test_description: "match dpkg install command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-dpkg.yaml",
+        test: "sudo dpkg -i ./app.deb",
+        check_detection_ids: [
+            "package_management:dpkg_install",
+        ],
+        test_description: "match dpkg install with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-dpkg.yaml",
+        test: "dpkg -r nginx",
+        check_detection_ids: [
+            "package_management:dpkg_remove",
+        ],
+        test_description: "match dpkg remove command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-dpkg.yaml",
+        test: "dpkg -P nginx",
+        check_detection_ids: [
+            "package_management:dpkg_remove",
+        ],
+        test_description: "match dpkg purge command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-dpkg.yaml",
+        test: "dpkg -l nginx",
+        check_detection_ids: [],
+        test_description: "should not match listing packages",
+    },
+]

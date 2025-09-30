@@ -1,0 +1,41 @@
+- from: system_services
+  test: '(?:sudo\s+)?systemctl\s+(?:stop|disable|mask)\s+(?:sshd?|firewalld|ufw|docker|containerd|cron|systemd-resolved|systemd-timesyncd)\b'
+  description: "You are about to stop or disable a core service. Confirm you understand the impact on remote access, networking, or scheduled tasks."
+  id: system_services:systemctl_disable_core_services
+- from: system_services
+  test: '(?:sudo\s+)?systemctl\s+(?:isolate|set-default)\s+(?:rescue\.target|emergency\.target)'
+  description: "This will transition the host into rescue or emergency mode, terminating most services. Ensure this is intentional."
+  id: system_services:systemctl_rescue_targets
+- from: system_services
+  test: '(?:sudo\s+)?service\s+(?:ssh|sshd?|networking|network-manager|firewalld|ufw|docker|cron)\s+(?:stop|disable|restart|force-reload)'
+  description: "Service command targeting a critical daemon. Verify downtime coordination and recovery plan."
+  id: system_services:service_manage_core_daemon
+- from: system_services
+  test: '(?:sudo\s+)?launchctl\s+(?:bootout|remove|unload|disable)\s+.*(ssh|com\.openssh\.sshd|com\.apple\.RemoteDesktop|com\.apple\.RemoteLogin)'
+  description: "You are about to unload or disable remote access services on macOS. Confirm you will not lock yourself out."
+  id: system_services:launchctl_disable_remote_access
+- from: system_services
+  test: '(?:sudo\s+)?brew\s+services\s+(?:stop|kill|cleanup|restart)\s+\S+'
+  description: "Homebrew service control can interrupt daemons. Confirm target and expected downtime."
+  id: system_services:brew_services_control
+- from: system_services
+  test: '(?:sudo\s+)?\bkill\s+(?:-(?:9|KILL|SIGKILL)|--signal\s*(?:9|KILL|SIGKILL))\s+'
+  description: "You are about to force kill a process with SIGKILL. This signal cannot be caught or ignored and may cause data loss or corruption."
+  id: system_services:kill_force_sigkill
+- from: system_services
+  test: '(?:sudo\s+)?killall\s+'
+  description: "The killall command will terminate ALL processes matching the given name. Confirm this is intentional and will not disrupt running services."
+  id: system_services:killall_processes
+- from: system_services
+  test: '(?:sudo\s+)?pkill\s+(?:.*\s+)?(?:-(?:9|KILL|SIGKILL)|--signal\s*(?:9|KILL|SIGKILL))\s+'
+  description: "You are about to force kill processes matching a pattern with SIGKILL. This may terminate multiple processes and cannot be intercepted."
+  id: system_services:pkill_force_sigkill
+- from: system_services
+  test: '(?:sudo\s+)?pkill\s+'
+  description: "The pkill command will terminate processes matching a pattern. This may affect multiple processes. Verify the pattern is specific enough."
+  id: system_services:pkill_pattern_match
+- from: system_services
+  test: '(?:sudo\s+)?\bkill\s+(?:-[A-Z]+\s+)?(?:1|init)\b'
+  description: "You are attempting to send a signal to PID 1 (init/systemd). This is extremely dangerous and may crash the entire system."
+  id: system_services:kill_pid_one
+

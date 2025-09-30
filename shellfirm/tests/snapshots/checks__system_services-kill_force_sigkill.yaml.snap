@@ -1,0 +1,96 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill -9 1234",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill with -9 signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "sudo kill -9 5678",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "sudo kill with -9 signal should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill -SIGKILL 9999",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill with -SIGKILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill -KILL 4321",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill with -KILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "sudo kill -SIGKILL 8888",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "sudo kill with -SIGKILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill --signal 9 1234",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill with --signal 9 should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill --signal SIGKILL 5555",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill with --signal SIGKILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill --signal KILL 6666",
+        check_detection_ids: [
+            "system_services:kill_force_sigkill",
+        ],
+        test_description: "kill with --signal KILL should trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill -TERM 1234",
+        check_detection_ids: [],
+        test_description: "kill with -TERM should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill -HUP 5678",
+        check_detection_ids: [],
+        test_description: "kill with -HUP should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "kill 1234",
+        check_detection_ids: [],
+        test_description: "kill without signal should not trigger",
+    },
+    TestSensitivePatternsResult {
+        file_path: "system_services-kill_force_sigkill.yaml",
+        test: "killall process",
+        check_detection_ids: [
+            "system_services:killall_processes",
+        ],
+        test_description: "killall should not match this check",
+    },
+]

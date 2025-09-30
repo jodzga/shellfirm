@@ -1,0 +1,20 @@
+---
+- test: sudo port install nginx
+  expected_detection_ids:
+    - package_management:macports_operations
+  description: match port install command
+
+- test: port uninstall nginx
+  expected_detection_ids:
+    - package_management:macports_operations
+  description: match port uninstall command
+
+- test: port upgrade outdated
+  expected_detection_ids:
+    - package_management:macports_operations
+  description: match port upgrade command
+
+- test: port list installed
+  expected_detection_ids: []
+  description: should not match list command
+

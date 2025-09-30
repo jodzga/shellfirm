@@ -1,0 +1,36 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "package_management-brew.yaml",
+        test: "brew install wget",
+        check_detection_ids: [
+            "package_management:brew_operations",
+        ],
+        test_description: "match brew install command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-brew.yaml",
+        test: "sudo brew uninstall nginx",
+        check_detection_ids: [
+            "package_management:brew_operations",
+        ],
+        test_description: "match brew uninstall with sudo",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-brew.yaml",
+        test: "brew cleanup",
+        check_detection_ids: [
+            "package_management:brew_operations",
+        ],
+        test_description: "match brew cleanup",
+    },
+    TestSensitivePatternsResult {
+        file_path: "package_management-brew.yaml",
+        test: "brew list",
+        check_detection_ids: [],
+        test_description: "should not match list command",
+    },
+]

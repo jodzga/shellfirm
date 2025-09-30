@@ -38,3 +38,4 @@
   test: route\s+del\s+default
   description: "Deleting default route"
   id: network:delete_default_route
+

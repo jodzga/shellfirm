@@ -1,0 +1,20 @@
+---
+- test: brew install wget
+  expected_detection_ids:
+    - package_management:brew_operations
+  description: match brew install command
+
+- test: sudo brew uninstall nginx
+  expected_detection_ids:
+    - package_management:brew_operations
+  description: match brew uninstall with sudo
+
+- test: brew cleanup
+  expected_detection_ids:
+    - package_management:brew_operations
+  description: match brew cleanup
+
+- test: brew list
+  expected_detection_ids: []
+  description: should not match list command
+

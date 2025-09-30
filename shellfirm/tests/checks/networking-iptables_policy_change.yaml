@@ -1,0 +1,15 @@
+---
+- test: iptables -P INPUT DROP
+  expected_detection_ids:
+    - networking:iptables_policy_change
+  description: match iptables default drop policy
+
+- test: sudo iptables -P OUTPUT ACCEPT
+  expected_detection_ids:
+    - networking:iptables_policy_change
+  description: match iptables default accept policy with sudo
+
+- test: iptables -A INPUT -j DROP
+  expected_detection_ids: []
+  description: should not match rule append
+

@@ -1,0 +1,15 @@
+---
+- test: networksetup -setnetworkserviceenabled Wi-Fi off
+  expected_detection_ids:
+    - networking:networksetup_disable_service
+  description: match networksetup disable Wi-Fi
+
+- test: sudo networksetup -setnetworkserviceenabled "Thunderbolt Bridge" off
+  expected_detection_ids:
+    - networking:networksetup_disable_service
+  description: match networksetup disable service with sudo
+
+- test: networksetup -setnetworkserviceenabled Wi-Fi on
+  expected_detection_ids: []
+  description: should not match enabling service
+
