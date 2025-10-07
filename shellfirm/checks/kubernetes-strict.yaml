@@ -14,3 +14,9 @@
   test: (k|kubectl)\s*rollout\s*(pause|restart|resume|undo)
   description: "This command will manage a rollout for a given resource."
   id: kubernetes-strict:rollout_resource
+- from: kubernetes-strict
+  test: ^(k|kubectl)\s+
+  description: "This kubectl command is missing the explicit --context parameter. Always specify --context to avoid running commands on the wrong cluster."
+  filters:
+    NotContains: "--context"
+  id: kubernetes-strict:require_context

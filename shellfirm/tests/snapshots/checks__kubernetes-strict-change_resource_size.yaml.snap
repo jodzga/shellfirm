@@ -1,13 +1,13 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-change_resource_size.yaml",
         test: "k scale",
         check_detection_ids: [
+            "kubernetes-strict:require_context",
             "kubernetes-strict:change_resource_size",
         ],
         test_description: "match command",
@@ -16,6 +16,7 @@ snapshot_kind: text
         file_path: "kubernetes-strict-change_resource_size.yaml",
         test: "kubectl   scale",
         check_detection_ids: [
+            "kubernetes-strict:require_context",
             "kubernetes-strict:change_resource_size",
         ],
         test_description: "match command with spaces",

@@ -1,13 +1,13 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-delete_resource.yaml",
         test: "k delete -n test",
         check_detection_ids: [
+            "kubernetes-strict:require_context",
             "kubernetes-strict:delete_resource",
         ],
         test_description: "match command",
@@ -16,6 +16,7 @@ snapshot_kind: text
         file_path: "kubernetes-strict-delete_resource.yaml",
         test: "kubectl   delete   -n     test",
         check_detection_ids: [
+            "kubernetes-strict:require_context",
             "kubernetes-strict:delete_resource",
         ],
         test_description: "match command with spaces",

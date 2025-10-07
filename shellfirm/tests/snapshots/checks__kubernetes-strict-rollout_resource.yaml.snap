@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -9,6 +8,7 @@ snapshot_kind: text
         test: "kubectl rollout restart",
         check_detection_ids: [
             "kubernetes-strict:rollout_resource",
+            "kubernetes-strict:require_context",
         ],
         test_description: "match command",
     },
@@ -17,6 +17,7 @@ snapshot_kind: text
         test: "kubectl rollout resume",
         check_detection_ids: [
             "kubernetes-strict:rollout_resource",
+            "kubernetes-strict:require_context",
         ],
         test_description: "match command",
     },
@@ -25,6 +26,7 @@ snapshot_kind: text
         test: "kubectl rollout pause",
         check_detection_ids: [
             "kubernetes-strict:rollout_resource",
+            "kubernetes-strict:require_context",
         ],
         test_description: "match command",
     },
@@ -33,19 +35,24 @@ snapshot_kind: text
         test: "kubectl   rollout   undo",
         check_detection_ids: [
             "kubernetes-strict:rollout_resource",
+            "kubernetes-strict:require_context",
         ],
         test_description: "match command",
     },
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-rollout_resource.yaml",
         test: "kubectl rollout s",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
         test_description: "invalid command",
     },
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-rollout_resource.yaml",
         test: "kubectl rollout",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
         test_description: "invalid command",
     },
 ]

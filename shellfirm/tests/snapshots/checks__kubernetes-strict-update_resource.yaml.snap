@@ -1,7 +1,6 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
@@ -9,6 +8,7 @@ snapshot_kind: text
         test: "k set env",
         check_detection_ids: [
             "kubernetes-strict:update_resource",
+            "kubernetes-strict:require_context",
         ],
         test_description: "match command",
     },
@@ -17,19 +17,24 @@ snapshot_kind: text
         test: "kubectl   set   env",
         check_detection_ids: [
             "kubernetes-strict:update_resource",
+            "kubernetes-strict:require_context",
         ],
         test_description: "match command with spaces",
     },
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-update_resource.yaml",
         test: "k set",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
         test_description: "invalid command",
     },
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-update_resource.yaml",
         test: "kubectl set",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
         test_description: "invalid command",
     },
 ]

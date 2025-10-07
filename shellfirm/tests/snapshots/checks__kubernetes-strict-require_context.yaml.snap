@@ -1,0 +1,114 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl get pods",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match kubectl command without --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "k get pods",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match k alias without --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl apply -f deployment.yaml",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match apply command without --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl delete pod my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:delete_resource",
+        ],
+        test_description: "match delete command without --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl scale deployment my-app --replicas=3",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:change_resource_size",
+        ],
+        test_description: "match scale command without --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl get pods --context=production",
+        check_detection_ids: [],
+        test_description: "should not match when --context is present",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl get pods --context production",
+        check_detection_ids: [],
+        test_description: "should not match when --context is present (space separator)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "k get pods --context=staging",
+        check_detection_ids: [],
+        test_description: "should not match k alias with --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl apply -f deployment.yaml --context=dev-cluster",
+        check_detection_ids: [],
+        test_description: "should not match apply with --context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl delete pod my-pod --context prod",
+        check_detection_ids: [
+            "kubernetes-strict:delete_resource",
+        ],
+        test_description: "delete with --context should only match delete_resource",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl --context=production get pods",
+        check_detection_ids: [],
+        test_description: "should not match when --context is at the beginning",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl --context production get pods",
+        check_detection_ids: [],
+        test_description: "should not match when --context is at the beginning (space separator)",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl get pods -n default --context=prod",
+        check_detection_ids: [],
+        test_description: "should not match with both namespace and context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "k scale deployment my-app --replicas=3 --context=staging",
+        check_detection_ids: [
+            "kubernetes-strict:change_resource_size",
+        ],
+        test_description: "scale with --context should only match change_resource_size",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-require_context.yaml",
+        test: "kubectl rollout restart deployment/my-app --context=production",
+        check_detection_ids: [
+            "kubernetes-strict:rollout_resource",
+        ],
+        test_description: "rollout with --context should only match rollout_resource",
+    },
+]

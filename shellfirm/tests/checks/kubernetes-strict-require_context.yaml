@@ -1,0 +1,72 @@
+---
+- test: kubectl get pods
+  expected_detection_ids:
+    - kubernetes-strict:require_context
+  description: match kubectl command without --context
+
+- test: k get pods
+  expected_detection_ids:
+    - kubernetes-strict:require_context
+  description: match k alias without --context
+
+- test: kubectl apply -f deployment.yaml
+  expected_detection_ids:
+    - kubernetes-strict:require_context
+  description: match apply command without --context
+
+- test: kubectl delete pod my-pod
+  expected_detection_ids:
+    - kubernetes-strict:require_context
+    - kubernetes-strict:delete_resource
+  description: match delete command without --context
+
+- test: kubectl scale deployment my-app --replicas=3
+  expected_detection_ids:
+    - kubernetes-strict:require_context
+    - kubernetes-strict:change_resource_size
+  description: match scale command without --context
+
+- test: kubectl get pods --context=production
+  expected_detection_ids: []
+  description: should not match when --context is present
+
+- test: kubectl get pods --context production
+  expected_detection_ids: []
+  description: should not match when --context is present (space separator)
+
+- test: k get pods --context=staging
+  expected_detection_ids: []
+  description: should not match k alias with --context
+
+- test: kubectl apply -f deployment.yaml --context=dev-cluster
+  expected_detection_ids: []
+  description: should not match apply with --context
+
+- test: kubectl delete pod my-pod --context prod
+  expected_detection_ids:
+    - kubernetes-strict:delete_resource
+  description: delete with --context should only match delete_resource
+
+- test: kubectl --context=production get pods
+  expected_detection_ids: []
+  description: should not match when --context is at the beginning
+
+- test: kubectl --context production get pods
+  expected_detection_ids: []
+  description: should not match when --context is at the beginning (space separator)
+
+- test: kubectl get pods -n default --context=prod
+  expected_detection_ids: []
+  description: should not match with both namespace and context
+
+- test: k scale deployment my-app --replicas=3 --context=staging
+  expected_detection_ids:
+    - kubernetes-strict:change_resource_size
+  description: scale with --context should only match change_resource_size
+
+- test: kubectl rollout restart deployment/my-app --context=production
+  expected_detection_ids:
+    - kubernetes-strict:rollout_resource
+  description: rollout with --context should only match rollout_resource
+
+
