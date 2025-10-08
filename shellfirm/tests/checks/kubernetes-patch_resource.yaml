@@ -1,0 +1,10 @@
+---
+- test: kubectl patch deployment my-app -p '{"spec":{"replicas":3}}'
+  description: match command
+- test: k patch pod my-pod --patch '{"metadata":{"labels":{"app":"test"}}}'
+  description: match command with k alias
+- test: kubectl   patch   service   my-service   -p   '{}'
+  description: match command with extra spaces
+- test: kubectl apply -f deployment.yaml
+  description: different command
+

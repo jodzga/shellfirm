@@ -1,0 +1,10 @@
+---
+- test: kubectl replace -f pod.yaml
+  description: match command
+- test: k replace -f deployment.yaml
+  description: match command with k alias
+- test: kubectl   replace   --force   -f   resource.yaml
+  description: match command with force flag
+- test: kubectl apply -f pod.yaml
+  description: different command
+

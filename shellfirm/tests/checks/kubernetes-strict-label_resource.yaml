@@ -1,0 +1,10 @@
+---
+- test: kubectl label pod my-pod env=prod
+  description: match command
+- test: k label nodes node-1 disktype=ssd
+  description: match command with k alias
+- test: kubectl   label   deployment   my-app   version=v2
+  description: match command with extra spaces
+- test: kubectl get pods --show-labels
+  description: different command
+

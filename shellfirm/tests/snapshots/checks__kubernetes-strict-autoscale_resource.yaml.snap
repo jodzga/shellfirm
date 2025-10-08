@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-autoscale_resource.yaml",
+        test: "kubectl autoscale deployment my-app --min=2 --max=10",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:autoscale_resource",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-autoscale_resource.yaml",
+        test: "k autoscale rs my-rs --min=1 --max=5",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:autoscale_resource",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-autoscale_resource.yaml",
+        test: "kubectl   autoscale   deployment   test   --cpu-percent=80",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:autoscale_resource",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-autoscale_resource.yaml",
+        test: "kubectl get hpa",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

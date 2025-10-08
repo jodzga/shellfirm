@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-run_pod.yaml",
+        test: "kubectl run nginx --image=nginx",
+        check_detection_ids: [
+            "kubernetes-strict:run_pod",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-run_pod.yaml",
+        test: "k run my-pod --image=busybox",
+        check_detection_ids: [
+            "kubernetes-strict:run_pod",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-run_pod.yaml",
+        test: "kubectl   run   test   --image=alpine",
+        check_detection_ids: [
+            "kubernetes-strict:run_pod",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-run_pod.yaml",
+        test: "kubectl get pods",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

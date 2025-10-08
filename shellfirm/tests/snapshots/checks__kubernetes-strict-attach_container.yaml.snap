@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-attach_container.yaml",
+        test: "kubectl attach my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:attach_container",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-attach_container.yaml",
+        test: "k attach my-pod -c container",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:attach_container",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-attach_container.yaml",
+        test: "kubectl   attach   my-pod   -it",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:attach_container",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-attach_container.yaml",
+        test: "kubectl logs my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

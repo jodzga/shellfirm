@@ -1,0 +1,10 @@
+---
+- test: kubectl debug my-pod -it --image=busybox
+  description: match command
+- test: k debug node/my-node -it --image=ubuntu
+  description: match command with k alias
+- test: kubectl   debug   my-pod   --copy-to=my-pod-debug
+  description: match command with extra spaces
+- test: kubectl logs my-pod
+  description: different command
+

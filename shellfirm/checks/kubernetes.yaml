@@ -2,3 +2,43 @@
   test: (kubectl|k)\s*delete\s*(ns|namespace)
   description: "Deleting the namespace also deletes all the residing components."
   id: kubernetes:delete_namespace
+- from: kubernetes
+  test: (kubectl|k)\s*drain
+  description: "This command will evict all pods from the node in preparation for maintenance."
+  id: kubernetes:drain_node
+- from: kubernetes
+  test: (kubectl|k)\s*cordon
+  description: "This command will mark the node as unschedulable, preventing new pods from being scheduled on it."
+  id: kubernetes:cordon_node
+- from: kubernetes
+  test: (kubectl|k)\s*uncordon
+  description: "This command will mark the node as schedulable, allowing new pods to be scheduled on it."
+  id: kubernetes:uncordon_node
+- from: kubernetes
+  test: (kubectl|k)\s*taint
+  description: "This command will add or update taints on nodes, which affects pod scheduling."
+  id: kubernetes:taint_node
+- from: kubernetes
+  test: (kubectl|k)\s*replace
+  description: "This command will replace an existing resource with a new one. This is a destructive operation."
+  id: kubernetes:replace_resource
+- from: kubernetes
+  test: (kubectl|k)\s*edit
+  description: "This command will directly edit a resource on the server. Changes take effect immediately."
+  id: kubernetes:edit_resource
+- from: kubernetes
+  test: (kubectl|k)\s*exec
+  description: "This command will execute commands inside a container. Use with caution in production environments."
+  id: kubernetes:exec_container
+- from: kubernetes
+  test: (kubectl|k)\s*patch
+  description: "This command will update fields of a resource. This can cause unexpected changes."
+  id: kubernetes:patch_resource
+- from: kubernetes
+  test: (kubectl|k)\s*apply.*(-f|--filename).*\|
+  description: "Applying configuration from stdin can be dangerous. Make sure you understand what is being applied."
+  id: kubernetes:apply_from_stdin
+- from: kubernetes
+  test: (kubectl|k)\s*apply.*--force
+  description: "Force applying configuration can delete and recreate resources, causing downtime."
+  id: kubernetes:apply_force

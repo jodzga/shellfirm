@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-exec_container.yaml",
+        test: "kubectl exec -it my-pod -- /bin/bash",
+        check_detection_ids: [
+            "kubernetes:exec_container",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-exec_container.yaml",
+        test: "k exec my-pod -- ls",
+        check_detection_ids: [
+            "kubernetes:exec_container",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-exec_container.yaml",
+        test: "kubectl   exec   -it   my-pod   -c   container   --   sh",
+        check_detection_ids: [
+            "kubernetes:exec_container",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with container flag",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-exec_container.yaml",
+        test: "kubectl logs my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

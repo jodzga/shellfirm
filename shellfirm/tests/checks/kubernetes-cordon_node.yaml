@@ -1,0 +1,10 @@
+---
+- test: kubectl cordon node-1
+  description: match command
+- test: k cordon my-node
+  description: match command with k alias
+- test: kubectl   cordon   node-1
+  description: match command with extra spaces
+- test: kubectl uncordon node-1
+  description: different command
+

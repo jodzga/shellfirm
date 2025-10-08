@@ -1,0 +1,42 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-patch_resource.yaml",
+        test: "kubectl patch deployment my-app -p '{\"spec\":{\"replicas\":3}}'",
+        check_detection_ids: [
+            "kubernetes:patch_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-patch_resource.yaml",
+        test: "k patch pod my-pod --patch '{\"metadata\":{\"labels\":{\"app\":\"test\"}}}'",
+        check_detection_ids: [
+            "kubernetes:patch_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-patch_resource.yaml",
+        test: "kubectl   patch   service   my-service   -p   '{}'",
+        check_detection_ids: [
+            "kubernetes:patch_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-patch_resource.yaml",
+        test: "kubectl apply -f deployment.yaml",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "different command",
+    },
+]

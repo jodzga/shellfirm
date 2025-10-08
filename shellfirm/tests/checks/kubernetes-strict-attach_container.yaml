@@ -1,0 +1,10 @@
+---
+- test: kubectl attach my-pod
+  description: match command
+- test: k attach my-pod -c container
+  description: match command with k alias
+- test: kubectl   attach   my-pod   -it
+  description: match command with extra spaces
+- test: kubectl logs my-pod
+  description: different command
+

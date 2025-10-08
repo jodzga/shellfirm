@@ -20,3 +20,51 @@
   filters:
     NotContains: "--context"
   id: kubernetes-strict:require_context
+- from: kubernetes-strict
+  test: (kubectl|k)\s*create
+  description: "This command will create a new resource in the cluster."
+  id: kubernetes-strict:create_resource
+- from: kubernetes-strict
+  test: (kubectl|k)\s*run
+  description: "This command will run a new pod in the cluster."
+  id: kubernetes-strict:run_pod
+- from: kubernetes-strict
+  test: (kubectl|k)\s*expose
+  description: "This command will create a new service to expose a resource."
+  id: kubernetes-strict:expose_service
+- from: kubernetes-strict
+  test: (kubectl|k)\s*apply
+  description: "This command will apply configuration changes to resources."
+  id: kubernetes-strict:apply_resource
+- from: kubernetes-strict
+  test: (kubectl|k)\s*label
+  description: "This command will add or update labels on resources."
+  id: kubernetes-strict:label_resource
+- from: kubernetes-strict
+  test: (kubectl|k)\s*annotate
+  description: "This command will add or update annotations on resources."
+  id: kubernetes-strict:annotate_resource
+- from: kubernetes-strict
+  test: (kubectl|k)\s*autoscale
+  description: "This command will set up autoscaling for a resource."
+  id: kubernetes-strict:autoscale_resource
+- from: kubernetes-strict
+  test: (kubectl|k)\s*certificate
+  description: "This command will modify certificate resources."
+  id: kubernetes-strict:certificate_operation
+- from: kubernetes-strict
+  test: (kubectl|k)\s*attach
+  description: "This command will attach to a running container."
+  id: kubernetes-strict:attach_container
+- from: kubernetes-strict
+  test: (kubectl|k)\s*cp
+  description: "This command will copy files to or from containers."
+  id: kubernetes-strict:copy_files
+- from: kubernetes-strict
+  test: (kubectl|k)\s*debug
+  description: "This command will create an ephemeral debug container."
+  id: kubernetes-strict:debug_container
+- from: kubernetes-strict
+  test: (kubectl|k)\s*config\s*(set-cluster|set-context|set-credentials|use-context|delete-cluster|delete-context|rename-context|unset)
+  description: "This command will modify your kubeconfig file."
+  id: kubernetes-strict:config_modify

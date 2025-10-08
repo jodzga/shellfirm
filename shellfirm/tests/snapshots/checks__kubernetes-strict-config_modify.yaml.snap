@@ -1,0 +1,68 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "kubectl config set-context my-context",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:config_modify",
+        ],
+        test_description: "match set-context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "k config use-context prod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:config_modify",
+        ],
+        test_description: "match use-context with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "kubectl   config   delete-cluster   old-cluster",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:config_modify",
+        ],
+        test_description: "match delete-cluster",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "kubectl config set-credentials user --token=abc123",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:config_modify",
+        ],
+        test_description: "match set-credentials",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "kubectl config rename-context old new",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:config_modify",
+        ],
+        test_description: "match rename-context",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "kubectl config unset users.old",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:config_modify",
+        ],
+        test_description: "match unset",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-config_modify.yaml",
+        test: "kubectl config view",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "view command (read-only)",
+    },
+]

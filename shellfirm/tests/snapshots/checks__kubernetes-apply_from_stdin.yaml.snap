@@ -1,0 +1,39 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_from_stdin.yaml",
+        test: "cat config.yaml | kubectl apply -f -",
+        check_detection_ids: [
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "match command with stdin",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_from_stdin.yaml",
+        test: "echo \"...\" | k apply --filename -",
+        check_detection_ids: [
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_from_stdin.yaml",
+        test: "helm template . | kubectl apply -f -",
+        check_detection_ids: [
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "match command with pipe from helm",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_from_stdin.yaml",
+        test: "kubectl apply -f config.yaml",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "apply from file",
+    },
+]

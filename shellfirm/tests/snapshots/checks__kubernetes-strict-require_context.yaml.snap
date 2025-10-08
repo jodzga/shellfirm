@@ -24,6 +24,7 @@ expression: test_file_results
         test: "kubectl apply -f deployment.yaml",
         check_detection_ids: [
             "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
         ],
         test_description: "match apply command without --context",
     },
@@ -66,7 +67,9 @@ expression: test_file_results
     TestSensitivePatternsResult {
         file_path: "kubernetes-strict-require_context.yaml",
         test: "kubectl apply -f deployment.yaml --context=dev-cluster",
-        check_detection_ids: [],
+        check_detection_ids: [
+            "kubernetes-strict:apply_resource",
+        ],
         test_description: "should not match apply with --context",
     },
     TestSensitivePatternsResult {

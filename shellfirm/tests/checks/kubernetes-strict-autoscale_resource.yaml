@@ -1,0 +1,10 @@
+---
+- test: kubectl autoscale deployment my-app --min=2 --max=10
+  description: match command
+- test: k autoscale rs my-rs --min=1 --max=5
+  description: match command with k alias
+- test: kubectl   autoscale   deployment   test   --cpu-percent=80
+  description: match command with extra spaces
+- test: kubectl get hpa
+  description: different command
+

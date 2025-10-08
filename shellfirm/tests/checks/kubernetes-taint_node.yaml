@@ -1,0 +1,10 @@
+---
+- test: kubectl taint nodes node-1 key=value:NoSchedule
+  description: match command
+- test: k taint node my-node key=value:NoExecute
+  description: match command with k alias
+- test: kubectl   taint   nodes   node-1   key-
+  description: match command removing taint
+- test: kubectl get nodes
+  description: different command
+

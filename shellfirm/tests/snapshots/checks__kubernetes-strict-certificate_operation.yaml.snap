@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-certificate_operation.yaml",
+        test: "kubectl certificate approve my-csr",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:certificate_operation",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-certificate_operation.yaml",
+        test: "k certificate deny test-csr",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:certificate_operation",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-certificate_operation.yaml",
+        test: "kubectl   certificate   approve   csr-123",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:certificate_operation",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-certificate_operation.yaml",
+        test: "kubectl get certificates",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

@@ -1,0 +1,42 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-uncordon_node.yaml",
+        test: "kubectl uncordon node-1",
+        check_detection_ids: [
+            "kubernetes:uncordon_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-uncordon_node.yaml",
+        test: "k uncordon my-node",
+        check_detection_ids: [
+            "kubernetes:uncordon_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-uncordon_node.yaml",
+        test: "kubectl   uncordon   node-1",
+        check_detection_ids: [
+            "kubernetes:uncordon_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-uncordon_node.yaml",
+        test: "kubectl cordon node-1",
+        check_detection_ids: [
+            "kubernetes:cordon_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

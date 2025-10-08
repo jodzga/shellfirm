@@ -1,0 +1,10 @@
+---
+- test: kubectl apply -f deployment.yaml
+  description: match command
+- test: k apply -f config.yaml
+  description: match command with k alias
+- test: kubectl   apply   --filename   resource.yaml
+  description: match command with extra spaces
+- test: kubectl get deployments
+  description: different command
+

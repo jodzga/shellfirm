@@ -1,0 +1,10 @@
+---
+- test: kubectl exec -it my-pod -- /bin/bash
+  description: match command
+- test: k exec my-pod -- ls
+  description: match command with k alias
+- test: kubectl   exec   -it   my-pod   -c   container   --   sh
+  description: match command with container flag
+- test: kubectl logs my-pod
+  description: different command
+

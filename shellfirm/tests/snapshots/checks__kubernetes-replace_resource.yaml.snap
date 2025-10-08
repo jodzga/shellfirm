@@ -1,0 +1,42 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-replace_resource.yaml",
+        test: "kubectl replace -f pod.yaml",
+        check_detection_ids: [
+            "kubernetes:replace_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-replace_resource.yaml",
+        test: "k replace -f deployment.yaml",
+        check_detection_ids: [
+            "kubernetes:replace_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-replace_resource.yaml",
+        test: "kubectl   replace   --force   -f   resource.yaml",
+        check_detection_ids: [
+            "kubernetes:replace_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with force flag",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-replace_resource.yaml",
+        test: "kubectl apply -f pod.yaml",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "different command",
+    },
+]

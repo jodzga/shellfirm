@@ -1,0 +1,10 @@
+---
+- test: kubectl expose deployment my-app --port=80
+  description: match command
+- test: k expose pod my-pod --port=8080
+  description: match command with k alias
+- test: kubectl   expose   service   my-service   --type=LoadBalancer
+  description: match command with extra spaces
+- test: kubectl get services
+  description: different command
+

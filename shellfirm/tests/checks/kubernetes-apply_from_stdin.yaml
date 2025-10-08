@@ -1,0 +1,10 @@
+---
+- test: cat config.yaml | kubectl apply -f -
+  description: match command with stdin
+- test: echo "..." | k apply --filename -
+  description: match command with k alias
+- test: helm template . | kubectl apply -f -
+  description: match command with pipe from helm
+- test: kubectl apply -f config.yaml
+  description: apply from file
+

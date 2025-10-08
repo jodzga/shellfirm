@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-debug_container.yaml",
+        test: "kubectl debug my-pod -it --image=busybox",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:debug_container",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-debug_container.yaml",
+        test: "k debug node/my-node -it --image=ubuntu",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:debug_container",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-debug_container.yaml",
+        test: "kubectl   debug   my-pod   --copy-to=my-pod-debug",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:debug_container",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-debug_container.yaml",
+        test: "kubectl logs my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

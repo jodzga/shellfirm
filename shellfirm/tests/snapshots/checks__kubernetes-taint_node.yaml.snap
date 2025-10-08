@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-taint_node.yaml",
+        test: "kubectl taint nodes node-1 key=value:NoSchedule",
+        check_detection_ids: [
+            "kubernetes:taint_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-taint_node.yaml",
+        test: "k taint node my-node key=value:NoExecute",
+        check_detection_ids: [
+            "kubernetes:taint_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-taint_node.yaml",
+        test: "kubectl   taint   nodes   node-1   key-",
+        check_detection_ids: [
+            "kubernetes:taint_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command removing taint",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-taint_node.yaml",
+        test: "kubectl get nodes",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

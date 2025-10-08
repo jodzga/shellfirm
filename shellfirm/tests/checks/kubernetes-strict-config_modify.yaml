@@ -1,0 +1,16 @@
+---
+- test: kubectl config set-context my-context
+  description: match set-context
+- test: k config use-context prod
+  description: match use-context with k alias
+- test: kubectl   config   delete-cluster   old-cluster
+  description: match delete-cluster
+- test: kubectl config set-credentials user --token=abc123
+  description: match set-credentials
+- test: kubectl config rename-context old new
+  description: match rename-context
+- test: kubectl config unset users.old
+  description: match unset
+- test: kubectl config view
+  description: view command (read-only)
+

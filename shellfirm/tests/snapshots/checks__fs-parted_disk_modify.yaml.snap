@@ -1,13 +1,13 @@
 ---
 source: shellfirm/tests/checks.rs
 expression: test_file_results
-snapshot_kind: text
 ---
 [
     TestSensitivePatternsResult {
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/sda mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match creating new GPT partition table",
@@ -16,6 +16,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted    /dev/sda    mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match creating new GPT partition table with spaces",
@@ -84,6 +85,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted   /dev/sda   mklabel   gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with extra spaces",
@@ -92,6 +94,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "sudo parted /dev/sda mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with sudo",
@@ -100,6 +103,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "sudo   parted   /dev/sda   mklabel   gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with sudo and extra spaces",
@@ -108,6 +112,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/sda mklabel gpt --script",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with script mode",
@@ -116,6 +121,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted --script /dev/sda mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with script mode in different position",
@@ -140,6 +146,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/mmcblk0 mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with SD card device",
@@ -148,6 +155,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/sda1 mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with partition device",
@@ -180,6 +188,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/sdc mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with third disk",
@@ -188,6 +197,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/mmcblk0p1 mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with SD card partition",
@@ -196,6 +206,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/sda2 mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with second partition",
@@ -204,6 +215,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted -a optimal /dev/sda mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with alignment option",
@@ -212,6 +224,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted -s /dev/sda mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with silent mode",
@@ -220,6 +233,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted --version /dev/sda mklabel gpt",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with version option",
@@ -228,6 +242,7 @@ snapshot_kind: text
         file_path: "fs-parted_disk_modify.yaml",
         test: "parted /dev/sda mklabel gpt mkpart primary ext4 0% 100%",
         check_detection_ids: [
+            "kubernetes-strict:label_resource",
             "fs:parted_disk_modify",
         ],
         test_description: "match command with multiple operations",

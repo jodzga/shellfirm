@@ -1,0 +1,10 @@
+---
+- test: kubectl certificate approve my-csr
+  description: match command
+- test: k certificate deny test-csr
+  description: match command with k alias
+- test: kubectl   certificate   approve   csr-123
+  description: match command with extra spaces
+- test: kubectl get certificates
+  description: different command
+

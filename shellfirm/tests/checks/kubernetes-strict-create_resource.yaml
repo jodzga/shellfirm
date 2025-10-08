@@ -1,0 +1,10 @@
+---
+- test: kubectl create deployment my-app --image=nginx
+  description: match command
+- test: k create -f deployment.yaml
+  description: match command with k alias
+- test: kubectl   create   namespace   test
+  description: match command with extra spaces
+- test: kubectl get deployment
+  description: different command
+

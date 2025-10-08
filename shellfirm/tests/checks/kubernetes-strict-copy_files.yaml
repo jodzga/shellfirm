@@ -1,0 +1,10 @@
+---
+- test: kubectl cp my-pod:/tmp/file.txt ./local-file.txt
+  description: match command from pod
+- test: k cp ./local-file.txt my-pod:/tmp/file.txt
+  description: match command to pod with k alias
+- test: kubectl   cp   my-pod:/app/config   ./config
+  description: match command with extra spaces
+- test: kubectl logs my-pod
+  description: different command
+

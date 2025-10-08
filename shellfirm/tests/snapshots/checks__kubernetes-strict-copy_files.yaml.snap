@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-copy_files.yaml",
+        test: "kubectl cp my-pod:/tmp/file.txt ./local-file.txt",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:copy_files",
+        ],
+        test_description: "match command from pod",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-copy_files.yaml",
+        test: "k cp ./local-file.txt my-pod:/tmp/file.txt",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:copy_files",
+        ],
+        test_description: "match command to pod with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-copy_files.yaml",
+        test: "kubectl   cp   my-pod:/app/config   ./config",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:copy_files",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-copy_files.yaml",
+        test: "kubectl logs my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

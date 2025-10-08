@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-create_resource.yaml",
+        test: "kubectl create deployment my-app --image=nginx",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:create_resource",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-create_resource.yaml",
+        test: "k create -f deployment.yaml",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:create_resource",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-create_resource.yaml",
+        test: "kubectl   create   namespace   test",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:create_resource",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-create_resource.yaml",
+        test: "kubectl get deployment",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

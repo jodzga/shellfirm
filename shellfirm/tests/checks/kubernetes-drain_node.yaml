@@ -1,0 +1,12 @@
+---
+- test: kubectl drain node-1
+  description: match command
+- test: k drain my-node
+  description: match command with k alias
+- test: kubectl   drain   node-1
+  description: match command with extra spaces
+- test: kubectl drain node-1 --ignore-daemonsets
+  description: match command with flags
+- test: kubectl delete node-1
+  description: different command
+

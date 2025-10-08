@@ -1,0 +1,51 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-drain_node.yaml",
+        test: "kubectl drain node-1",
+        check_detection_ids: [
+            "kubernetes:drain_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-drain_node.yaml",
+        test: "k drain my-node",
+        check_detection_ids: [
+            "kubernetes:drain_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-drain_node.yaml",
+        test: "kubectl   drain   node-1",
+        check_detection_ids: [
+            "kubernetes:drain_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-drain_node.yaml",
+        test: "kubectl drain node-1 --ignore-daemonsets",
+        check_detection_ids: [
+            "kubernetes:drain_node",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with flags",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-drain_node.yaml",
+        test: "kubectl delete node-1",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:delete_resource",
+        ],
+        test_description: "different command",
+    },
+]

@@ -1,0 +1,10 @@
+---
+- test: kubectl run nginx --image=nginx
+  description: match command
+- test: k run my-pod --image=busybox
+  description: match command with k alias
+- test: kubectl   run   test   --image=alpine
+  description: match command with extra spaces
+- test: kubectl get pods
+  description: different command
+

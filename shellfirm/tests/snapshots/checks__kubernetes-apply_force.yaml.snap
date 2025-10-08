@@ -1,0 +1,45 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_force.yaml",
+        test: "kubectl apply --force -f pod.yaml",
+        check_detection_ids: [
+            "kubernetes:apply_force",
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_force.yaml",
+        test: "k apply -f deployment.yaml --force",
+        check_detection_ids: [
+            "kubernetes:apply_force",
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_force.yaml",
+        test: "kubectl   apply   --force   --filename   resource.yaml",
+        check_detection_ids: [
+            "kubernetes:apply_force",
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-apply_force.yaml",
+        test: "kubectl apply -f pod.yaml",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:apply_resource",
+        ],
+        test_description: "apply without force",
+    },
+]

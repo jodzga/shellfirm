@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-label_resource.yaml",
+        test: "kubectl label pod my-pod env=prod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:label_resource",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-label_resource.yaml",
+        test: "k label nodes node-1 disktype=ssd",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:label_resource",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-label_resource.yaml",
+        test: "kubectl   label   deployment   my-app   version=v2",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:label_resource",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-label_resource.yaml",
+        test: "kubectl get pods --show-labels",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

@@ -1,0 +1,10 @@
+---
+- test: kubectl edit deployment my-app
+  description: match command
+- test: k edit pod my-pod
+  description: match command with k alias
+- test: kubectl   edit   service   my-service
+  description: match command with extra spaces
+- test: kubectl get deployment
+  description: different command
+

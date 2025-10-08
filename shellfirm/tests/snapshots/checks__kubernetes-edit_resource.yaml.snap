@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-edit_resource.yaml",
+        test: "kubectl edit deployment my-app",
+        check_detection_ids: [
+            "kubernetes:edit_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-edit_resource.yaml",
+        test: "k edit pod my-pod",
+        check_detection_ids: [
+            "kubernetes:edit_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-edit_resource.yaml",
+        test: "kubectl   edit   service   my-service",
+        check_detection_ids: [
+            "kubernetes:edit_resource",
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-edit_resource.yaml",
+        test: "kubectl get deployment",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

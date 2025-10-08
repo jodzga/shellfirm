@@ -1,0 +1,10 @@
+---
+- test: kubectl annotate pod my-pod description="my pod"
+  description: match command
+- test: k annotate deployment my-app version="1.0"
+  description: match command with k alias
+- test: kubectl   annotate   service   my-service   key=value
+  description: match command with extra spaces
+- test: kubectl describe pod my-pod
+  description: different command
+

@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-annotate_resource.yaml",
+        test: "kubectl annotate pod my-pod description=\"my pod\"",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:annotate_resource",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-annotate_resource.yaml",
+        test: "k annotate deployment my-app version=\"1.0\"",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:annotate_resource",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-annotate_resource.yaml",
+        test: "kubectl   annotate   service   my-service   key=value",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:annotate_resource",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-annotate_resource.yaml",
+        test: "kubectl describe pod my-pod",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]

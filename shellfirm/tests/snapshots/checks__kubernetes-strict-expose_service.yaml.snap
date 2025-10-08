@@ -1,0 +1,41 @@
+---
+source: shellfirm/tests/checks.rs
+expression: test_file_results
+---
+[
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-expose_service.yaml",
+        test: "kubectl expose deployment my-app --port=80",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:expose_service",
+        ],
+        test_description: "match command",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-expose_service.yaml",
+        test: "k expose pod my-pod --port=8080",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:expose_service",
+        ],
+        test_description: "match command with k alias",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-expose_service.yaml",
+        test: "kubectl   expose   service   my-service   --type=LoadBalancer",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+            "kubernetes-strict:expose_service",
+        ],
+        test_description: "match command with extra spaces",
+    },
+    TestSensitivePatternsResult {
+        file_path: "kubernetes-strict-expose_service.yaml",
+        test: "kubectl get services",
+        check_detection_ids: [
+            "kubernetes-strict:require_context",
+        ],
+        test_description: "different command",
+    },
+]
